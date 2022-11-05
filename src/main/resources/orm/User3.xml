@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user3">
+    <!-- 嵌套结果 -->
+    <select id="findUserWithRoles" parameterType="Integer"
+            resultMap="user3.userWithRolesResult">
+        select * from user where id=#{id}
+    </select>
+
+    <select id="findRoleById" parameterType="integer"
+            resultType="com.cn.mybatis.pojo.Role"
+            resultMap="user3.Role">
+        select r.*
+        from role r
+        where r.id in (select rid
+                       from user_role
+                       where rid = #{uid})
+    </select>
+
+    <resultMap id="Role" type="com.cn.mybatis.pojo.Role">
+        <id column="id" property="id" />
+        <result property="roleName" column="role_name" />
+        <result property="roleDesc" column="role_desc" />
+    </resultMap>
+
+    <resultMap type="com.cn.mybatis.pojo.User3" id="userWithRolesResult">
+        <id column="id" property="id" />
+        <result property="username" column="username" />
+        <result property="birthday" column="birthday" />
+        <result property="sex" column="sex" />
+        <result property="address" column="address" />
+
+        <collection property="roles" ofType="com.cn.mybatis.pojo.Role"
+                    column="id"
+                    select="user3.findRoleById" />
+    </resultMap>
+</mapper>
