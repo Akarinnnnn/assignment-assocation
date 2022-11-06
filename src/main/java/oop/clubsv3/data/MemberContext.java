@@ -1,25 +1,18 @@
 package oop.clubsv3.data;
 
-import oop.clubsv3.controllers.ClubController;
 import oop.clubsv3.models.Club;
-import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
 
-import javax.xml.stream.events.Namespace;
-import java.io.Closeable;
-import java.io.IOException;
 import java.util.List;
 
-public class ClubContext implements DisposableBean
+public class MemberContext implements DisposableBean
 {
-	private static final String NameSpace = "club.";
+	private static final String NameSpace = "member.";
 	
 	private final SqlSession session;
 	
-	public ClubContext(DbConnectionBean fac)
+	public MemberContext(DbConnectionBean fac)
 	{
 		session = fac.getConnection();
 	}
@@ -30,7 +23,7 @@ public class ClubContext implements DisposableBean
 		session.close();
 	}
 	
-	public Club getClub(int id)
+	public Club getMember(int id)
 	{
 		return session.selectOne(NameSpace + "getByName", id);
 	}

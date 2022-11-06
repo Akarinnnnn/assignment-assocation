@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PreDestroy;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
@@ -18,12 +19,20 @@ public class ClubController
 {
 	final ClubContext db;
 	
-	public ClubController(ClubContext db) {this.db = db;}
+	public ClubController(DbConnectionBean dbfac)
+	{
+		db = new ClubContext(dbfac);
+	}
 	
 	@GetMapping("/list")
 	public List<Club> listClubs(int pageNumber)
 	{
 		return db.getOnePage(pageNumber);
-		// return new Club[1];
+	}
+	
+	@PreDestroy
+	public void destory()
+	{
+		db.destroy();
 	}
 }
