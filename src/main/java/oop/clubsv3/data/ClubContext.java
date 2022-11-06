@@ -45,6 +45,7 @@ public class ClubContext implements DisposableBean
 	// 游标日后再说
 	public List<Club> getOnePage(int pageNumber)
 	{
-		return session.selectList(NameSpace+"queryOnePage", pageNumber);
+		int offset = pageNumber * 10;
+		return session.selectList(NameSpace+"queryOnePage", offset);
 	}
 }
