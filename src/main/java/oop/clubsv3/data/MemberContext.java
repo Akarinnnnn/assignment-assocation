@@ -31,6 +31,22 @@ public class MemberContext implements DisposableBean
 		return session.selectOne(NameSpace + "getByMid", mid);
 	}
 	
+	public void deleteClub(Member member)
+	{
+		session.delete(NameSpace + "delete", member.getMid());
+	}
+	
+	public void update(Member member)
+	{
+		session.update(NameSpace + "update", member);
+	}
+	
+	public void create(Member member)
+	{
+		session.insert(NameSpace + "new", member);
+	}
+	
+	
 	public List<Member> searchByClubId(Club club)
 	{
 		return searchByClubId(club.getId());

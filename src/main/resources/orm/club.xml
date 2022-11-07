@@ -38,6 +38,6 @@
     </update>
 
     <insert id="new" parameterType="oop.clubsv3.models.Club">
-        insert into clubs (name, foundDate) values (#{name}, #{foundDate})
+        insert into clubs (name, foundDate) values ('#{name}', '#{foundDate}')
     </insert>
 </mapper>

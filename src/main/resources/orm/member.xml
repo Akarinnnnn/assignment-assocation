@@ -13,22 +13,24 @@
 #         todo
     </select>
     <!--  返回List  -->
-    <select id="search" parameterType="String" resultType="oop.clubsv3.models.Club">
+    <select id="search" parameterType="Integer"  resultType="oop.clubsv3.models.Club">
 #         todo
+        select * from members where cid = #{id}
     </select>
     <delete id="delete" parameterType="Integer">
-        delete from clubs
-        where id = #{id}
+        delete from members
+        where mid = #{id}
     </delete>
 
     <update id="update" parameterType="oop.clubsv3.models.Club">
-        update clubs
-        set `name` = '#{name}',
-            `foundDate` = '#{foundDate}'
-        where id = #{id}
+        update members
+        set `cid` = '#{cid}',
+            `sid` = '#{sid}',
+            `职位` = '#{position}'
+        where mid = #{id}
     </update>
 
     <insert id="new" parameterType="oop.clubsv3.models.Club">
-        insert into clubs (name, foundDate) values (#{name}, #{foundDate})
+        insert into members (cid, sid, position) values (#{cid}, #{sid}, '#{position}')
     </insert>
 </mapper>
