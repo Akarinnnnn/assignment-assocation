@@ -8,12 +8,15 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PreDestroy;
+import javax.naming.Name;
 import javax.xml.stream.events.Namespace;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
 
-public class ClubContext implements DisposableBean
+@Repository
+public class ClubContext
 {
 	private static final String NameSpace = "club.";
 	
@@ -24,7 +27,7 @@ public class ClubContext implements DisposableBean
 		session = fac.getConnection();
 	}
 	
-	@Override
+	@PreDestroy
 	public void destroy()
 	{
 		session.close();
@@ -32,7 +35,22 @@ public class ClubContext implements DisposableBean
 	
 	public Club getClub(int id)
 	{
-		return session.selectOne(NameSpace + "getByName", id);
+		return session.selectOne(NameSpace + "getByid", id);
+	}
+	
+	public void deleteClub(int id)
+	{
+		session.delete(NameSpace + "delete", id);
+	}
+	
+	public void updateOne(Club club)
+	{
+		session.update(NameSpace + "update", club);
+	}
+	
+	public void create(Club club)
+	{
+		session.insert(NameSpace + "new", club);
 	}
 	
 	public List<Club> searchByName(String name)

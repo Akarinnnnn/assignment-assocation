@@ -10,9 +10,8 @@
 <!--    </select>-->
 
     <select id="getById" parameterType="Integer" resultMap="mapClub">
-        select c.*, m.职位 , s.id as sid, s.name as sname  from clubs c, members m, students s
-
-        where c.id = #{id};
+        select * from clubs
+        where id = #{id};
     </select>
     <!--  返回List  -->
     <select id="search" parameterType="String" resultType="oop.clubsv3.models.Club">
@@ -26,17 +25,19 @@
         order by id
         limit 10 offset #{numPage}
     </select>
-    <select id="findMembers" parameterType="Integer">
+    <delete id="delete" parameterType="Integer">
+        delete from clubs
+        where id = #{id}
+    </delete>
 
-    </select>
-    <resultMap id="mapClub" type="oop.clubsv3.models.Club" >
-        <id column="clubid" property="id" />
-        <result column="name" property="name" />
-        <collection property="members" ofType="oop.clubsv3.models.Member"
-                    column="sid"  select="club.findMembers">
-            <id property="id" column="id" />
-            <
-        </collection>
+    <update id="update" parameterType="oop.clubsv3.models.Club">
+        update clubs
+        set `name` = '#{name}',
+            `foundDate` = '#{foundDate}'
+        where id = #{id}
+    </update>
 
-    </resultMap>
+    <insert id="new" parameterType="oop.clubsv3.models.Club">
+        insert into clubs (name, foundDate) values (#{name}, #{foundDate})
+    </insert>
 </mapper>

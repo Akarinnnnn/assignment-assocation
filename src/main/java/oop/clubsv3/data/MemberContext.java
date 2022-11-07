@@ -1,11 +1,14 @@
 package oop.clubsv3.data;
 
 import oop.clubsv3.models.Club;
+import oop.clubsv3.models.Member;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class MemberContext implements DisposableBean
 {
 	private static final String NameSpace = "member.";
@@ -23,14 +26,18 @@ public class MemberContext implements DisposableBean
 		session.close();
 	}
 	
-	public Club getMember(int id)
+	public Member getMember(int mid)
 	{
-		return session.selectOne(NameSpace + "getByName", id);
+		return session.selectOne(NameSpace + "getByMid", mid);
 	}
 	
-	public List<Club> searchByName(String name)
+	public List<Member> searchByClubId(Club club)
 	{
-		return session.selectList(NameSpace + "search", name);
+		return searchByClubId(club.getId());
+	}
+	public List<Member> searchByClubId(int clubId)
+	{
+		return session.selectList(NameSpace + "search", clubId);
 	}
 	
 	// 游标日后再说
