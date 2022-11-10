@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="club">
+<mapper namespace="oop.clubsv3.models.Club">
     <!-- 嵌套结果 -->
 <!--    <select id="findUserWithRoles" parameterType="Integer"-->
 <!--            resultMap="user3.userWithRolesResult">-->
 <!--        select * from user where id=#{id}-->
 <!--    </select>-->
 
-    <select id="getById" parameterType="Integer" resultMap="mapClub">
+    <select id="getById" parameterType="Integer" resultType="oop.clubsv3.models.Club">
         select * from clubs
         where id = #{id};
     </select>
@@ -20,10 +20,11 @@
                 --  on clubs.id = members.cid
         where `clubs`.name like '%#{str}%'
     </select>
-    <select id="queryOnePage" parameterType="Integer">
+    <select id="queryOnePage" parameterType="Integer"
+        resultType="oop.clubsv3.models.Club">
         select * from clubs
         order by id
-        limit 10 offset #{numPage}
+        limit 10 offset #{numStart}
     </select>
     <delete id="delete" parameterType="Integer">
         delete from clubs

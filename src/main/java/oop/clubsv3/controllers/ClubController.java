@@ -3,18 +3,14 @@ package oop.clubsv3.controllers;
 import oop.clubsv3.data.ClubContext;
 import oop.clubsv3.data.DbConnectionBean;
 import oop.clubsv3.models.Club;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PreDestroy;
-import java.io.Closeable;
-import java.io.IOException;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
+@RequestMapping("/club")
 public class ClubController
 {
 	final ClubContext db;
@@ -24,10 +20,41 @@ public class ClubController
 		db = new ClubContext(dbfac);
 	}
 	
-	@GetMapping("/list")
-	public List<Club> listClubs(int pageNumber)
+	@GetMapping("/list/{page}")
+	public List<Club> listClubs(@PathVariable("page") int pageNumber)
 	{
 		return db.getOnePage(pageNumber);
+	}
+	
+	@GetMapping("/search/{name}")
+	public List<Club> searchByName(@PathVariable("name") String name)
+	{
+		return db.searchByName(name);
+	}
+	
+	@PostMapping("/create")
+	public void create(@RequestBody Club club)
+	{
+		db.create(club);
+	}
+	
+	@PostMapping("/update/{id}")
+	public void update(@PathVariable("id") int id, @RequestBody Club club)
+	{
+		club.setId(id);
+		db.updateOne(club);
+	}
+	
+	@PostMapping("/delete/{id}")
+	public void delete(@PathVariable("id") int id)
+	{
+		db.deleteClub(id);
+	}
+	
+	@GetMapping("/summary/{id}")
+	public Club getOne(@PathVariable("id") int id)
+	{
+		return db.getClub(id);
 	}
 	
 	@PreDestroy

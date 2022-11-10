@@ -1,24 +1,16 @@
 package oop.clubsv3.data;
 
-import oop.clubsv3.controllers.ClubController;
 import oop.clubsv3.models.Club;
-import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PreDestroy;
-import javax.naming.Name;
-import javax.xml.stream.events.Namespace;
-import java.io.Closeable;
-import java.io.IOException;
 import java.util.List;
 
 @Repository
 public class ClubContext
 {
-	private static final String NameSpace = "club.";
+	private static final String NameSpace = "oop.clubsv3.models.Club.";
 	
 	private final SqlSession session;
 	
@@ -35,7 +27,7 @@ public class ClubContext
 	
 	public Club getClub(int id)
 	{
-		return session.selectOne(NameSpace + "getByid", id);
+		return session.selectOne(NameSpace + "getByMid", id);
 	}
 	
 	public void deleteClub(int id)

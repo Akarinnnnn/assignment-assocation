@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class MemberContext implements DisposableBean
 {
-	private static final String NameSpace = "member.";
+	private static final String NameSpace = "oop.clubsv3.models.Club.";
 	
 	private final SqlSession session;
 	
@@ -46,20 +46,13 @@ public class MemberContext implements DisposableBean
 		session.insert(NameSpace + "new", member);
 	}
 	
-	
 	public List<Member> searchByClubId(Club club)
 	{
 		return searchByClubId(club.getId());
 	}
+	
 	public List<Member> searchByClubId(int clubId)
 	{
-		return session.selectList(NameSpace + "search", clubId);
-	}
-	
-	// 游标日后再说
-	public List<Club> getOnePage(int pageNumber)
-	{
-		int offset = pageNumber * 10;
-		return session.selectList(NameSpace+"queryOnePage", offset);
+		return session.selectList(NameSpace + "getByCid", clubId);
 	}
 }

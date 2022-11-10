@@ -2,21 +2,24 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="member">
+<mapper namespace="oop.clubsv3.models.Member">
     <!-- 嵌套结果 -->
 <!--    <select id="findUserWithRoles" parameterType="Integer"-->
 <!--            resultMap="user3.userWithRolesResult">-->
 <!--        select * from user where id=#{id}-->
 <!--    </select>-->
 
-    <select id="getById" parameterType="Integer" resultMap="mapClub">
-#         todo
-    </select>
     <!--  返回List  -->
-    <select id="search" parameterType="Integer"  resultType="oop.clubsv3.models.Club">
-#         todo
+    <select id="getByMid" parameterType="Integer"
+            resultType="oop.clubsv3.models.Member">
+        select * from members where mid = #{id}
+    </select>
+
+    <select id="getByCid" parameterType="Integer"
+            resultType="oop.clubsv3.models.Member">
         select * from members where cid = #{id}
     </select>
+
     <delete id="delete" parameterType="Integer">
         delete from members
         where mid = #{id}
