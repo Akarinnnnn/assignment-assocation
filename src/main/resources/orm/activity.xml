@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="oop.clubsv3.models.Activity">
+<mapper namespace="oop.clubsv3.data.ActivityContext">
     <!-- 嵌套结果 -->
 <!--    <select id="findUserWithRoles" parameterType="Integer"-->
 <!--            resultMap="user3.userWithRolesResult">-->
@@ -13,7 +13,7 @@
         select * from activities where aid = #{id}
     </select>
 
-    <select id="getByClub" parameterType="Integet" resultType="oop.clubsv3.models.Activity">
+    <select id="getByClub" parameterType="Integer" resultType="oop.clubsv3.models.Activity">
         select * from activities where cid = #{cid}
     </select>
 

@@ -6,3 +6,4 @@ spring:
 
 mybatis:
   mapper-locations: classpath:orm/*.xml
+  type-aliases-package: oop.clubsv3.models
