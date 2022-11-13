@@ -27,6 +27,20 @@ CREATE TABLE `activities` (
   FOREIGN KEY(cid) REFERENCES clubs(id)
 );
 
+-- Spring Security
+create table users
+(
+    username VARCHAR(50) not null primary key,
+    password VARCHAR(500) not null,
+    enabled boolean not null
+);
+create table authorities
+(
+    username VARCHAR(50) not null,
+    authority VARCHAR(50) not null,
+    constraint fk_authorities_users foreign key(username) references users(username)
+);
+
 DELIMITER $$
 CREATE OR REPLACE TRIGGER `TriggerDeleteClub` BEFORE DELETE
 ON clubs FOR EACH ROW

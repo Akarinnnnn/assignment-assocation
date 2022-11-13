@@ -4,6 +4,11 @@ spring:
     username: club
     password: 123456
 
+#  thymeleaf:
+#    cache: false
+#    mode: HTML
+#    prefix: classpath:/templates
+
 mybatis:
   mapper-locations: classpath:orm/*.xml
   type-aliases-package: oop.clubsv3.models

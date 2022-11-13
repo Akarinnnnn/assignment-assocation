@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>登录系统</title>
 </head>
 <body>
-    <form action="/dologin" method="post">
+    <form th:action="@{/dologin}" th:object="${oop.clubsv3.models.LoginInfo}"
+          method="post">
         <label for="username">用户名</label>
         <input type="text" name="username" id="username">
         <label for="pass">密码</label>
         <input type="text" name="password" id="pass">
+        <input type="hidden" th:value="${_csrf.token}" name="_csrf" th:if="${_csrf}"/>
         <input type="submit" value="点击登录">
     </form>
 </body>
