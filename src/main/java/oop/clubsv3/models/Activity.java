@@ -1,5 +1,6 @@
 package oop.clubsv3.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Activity
@@ -7,7 +8,7 @@ public class Activity
 	private int aid;
 	private String location;
 	private int cid;
-	private LocalDateTime timestart, timeend;
+	private LocalDate timestart, timeend;
 	
 	public int getAid()
 	{
@@ -39,22 +40,22 @@ public class Activity
 		this.cid = cid;
 	}
 	
-	public LocalDateTime getTimestart()
+	public LocalDate getTimestart()
 	{
 		return timestart;
 	}
 	
-	public void setTimestart(LocalDateTime timestart)
+	public void setTimestart(LocalDate timestart)
 	{
 		this.timestart = timestart;
 	}
 	
-	public LocalDateTime getTimeend()
+	public LocalDate getTimeend()
 	{
 		return timeend;
 	}
 	
-	public void setTimeend(LocalDateTime timeend)
+	public void setTimeend(LocalDate timeend)
 	{
 		this.timeend = timeend;
 	}

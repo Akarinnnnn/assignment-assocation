@@ -3,6 +3,7 @@ package oop.clubsv3.data;
 import oop.clubsv3.models.Club;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.annotation.PreDestroy;
 import java.util.List;
@@ -27,7 +28,7 @@ public class ClubContext
 	
 	public Club getClub(int id)
 	{
-		return session.selectOne(NameSpace + "getByMid", id);
+		return session.selectOne(NameSpace + "getById", id);
 	}
 	
 	public void deleteClub(int id)

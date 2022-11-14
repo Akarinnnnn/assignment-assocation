@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,18 +30,18 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 	@Override
 	public void configure(HttpSecurity security) throws Exception
 	{
-		security.httpBasic().and().formLogin(o -> {
+		security.cors().disable().httpBasic().and().formLogin(o -> {
 			o.failureUrl("/login-failure")
 					// .loginPage("/login2")
 					.permitAll(true);
-			o.defaultSuccessUrl("/index.html");
+			o.defaultSuccessUrl("/");
 		});
 		security.logout();
 		
 		// security.
 		
 		security.authorizeHttpRequests((authz) -> {
-			authz.antMatchers("/login2", "/register").permitAll();
+			authz.antMatchers("/login2", "/register","/**").permitAll();
 			authz.anyRequest().authenticated();
 		});
 		// return security.build();
@@ -48,11 +50,19 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(AuthenticationManagerBuilder builder) throws Exception
 	{
+		var jdbcbuilder = builder.jdbcAuthentication()
+							.dataSource(dataSource)
+							.passwordEncoder(new BCryptPasswordEncoder());
 		// builder.
-		builder.jdbcAuthentication()
-				.dataSource(dataSource)
-				.passwordEncoder(new BCryptPasswordEncoder())
-				.withUser(User.withUsername("user1").password("987654721.33").roles("user"));
+	    UserDetailsService details = jdbcbuilder.getUserDetailsService();
+		try
+		{
+			details.loadUserByUsername("user1");
+		}
+		catch (UsernameNotFoundException e)
+		{
+			jdbcbuilder.withUser(User.withUsername("user1").password("987654721.33").roles("user"));
+		}
 
 		
 		// return builder.build();

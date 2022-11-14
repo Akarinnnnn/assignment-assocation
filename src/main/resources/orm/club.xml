@@ -16,9 +16,7 @@
     <!--  返回List  -->
     <select id="search" parameterType="String" resultType="oop.clubsv3.models.Club">
         select * from clubs
-                 -- inner join members
-                --  on clubs.id = members.cid
-        where `clubs`.name like '%#{str}%'
+        where `clubs`.name like concat('%', #{str}, '%')
     </select>
     <select id="queryOnePage" parameterType="Integer"
         resultType="oop.clubsv3.models.Club">

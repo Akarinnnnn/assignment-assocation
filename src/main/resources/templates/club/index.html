@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>社团管理页面</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:inline="javascript">
+        const baseEndpoint = [[@{/club}]];
+        const clubindex = [[@{/club/index}]];
+    </script>
+    <script>
+        function appendClub(container, club) {
+            container.append("<div class=\"row\"><div class=\"row\">\n" +
+                "<div class=\"col-4\">"+ club.name +"</div>\n" +
+                "<div class=\"col-4\" >" + club.foundDate + "</div>\n" +
+                "<div class=\"col-4\">\n" +
+                "   <a class=\"btn btn-primary\" data-id=\""+ club.id +"\" onclick=\"goEdit(this)\">编辑</a>\n" +
+                "   <button class=\"btn btn-danger\" data-id=\""+ club.id +
+                "\" onclick=\"deleteClub(this)\">删除</button>\n" +
+                " </div>\n" +
+                "</div></div>"
+            )
+        }
+
+        function deleteClub(elem) {
+            $.ajax({
+                url: baseEndpoint + "/delete/" + elem.getAttribute('data-id'),
+                type: "POST",
+                dataType: 'json',
+                success: (data, textstatus) => {
+                    elem.remove();
+                    alert("已成功删除！");
+                }
+            })
+        }
+
+        function goEdit(elem) {
+            window.location = baseEndpoint + "/edit?id=" + elem.getAttribute('data-id')
+        }
+
+        function searchClubClicked() {
+            let se = $("#clubName").val();
+            $.ajax({
+                url: baseEndpoint + "/search/" + encodeURIComponent(se),
+                type: "GET",
+                dataType: "json",
+                success: (data, textStatus) => {
+                    let container = $('#search-result');
+                    container.empty();
+                    for (const club of data) {
+                        appendClub(container, club)
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row d-flex">
+            <input class="form-control col-md-10"
+                   type="text" name="clubname"
+                   id="clubName" placeholder="社团名称">
+            <button class="btn-primary col-md-2" onclick="searchClubClicked()">查找</button>
+        </div>
+        <div class="container col-md" id="search-result" >
+            <!-- 记得修改上边的拼接 -->
+            <div class="bg-light rounded-2 mb-1 p-1" th:each="club:${clubs}">
+                <div class="row">
+                    <div class="col-4" th:text="${club.name}"></div>
+                    <div class="col-4" th:text="${club.foundDate}"></div>
+                    <div class="col-4">
+                        <a class="btn btn-primary" th:data-id="${club.id}" onclick="goEdit(this)">编辑</a>
+                        <button class="btn btn-danger" th:data-id="${club.id}" onclick="deleteClub(this)">删除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

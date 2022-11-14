@@ -1,4 +1,4 @@
-package oop.clubsv3.controllers;
+package oop.clubsv3.view;
 
 import oop.clubsv3.models.LoginInfo;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,24 +9,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.security.auth.login.AccountException;
-
 // @Controller
-public class LoginController
+public class LoginView
 {
 	private final AuthenticationManager authman;
 	private final UserDetailsManager userman;
 	
 	
-	public LoginController(AuthenticationManager authman,
-						   UserDetailsService userDetailsService)
+	public LoginView(AuthenticationManager authman,
+					 UserDetailsService userDetailsService)
 	{
 		this.authman = authman;
 		

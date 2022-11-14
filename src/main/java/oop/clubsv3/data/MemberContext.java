@@ -31,9 +31,9 @@ public class MemberContext implements DisposableBean
 		return session.selectOne(NameSpace + "getByMid", mid);
 	}
 	
-	public void deleteClub(Member member)
+	public void delete(int mid)
 	{
-		session.delete(NameSpace + "delete", member.getMid());
+		session.delete(NameSpace + "delete", mid);
 	}
 	
 	public void update(Member member)

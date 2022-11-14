@@ -1,5 +1,6 @@
 package oop.clubsv3.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Club
 {
 	private String name;
 	private int id;
-	private LocalDateTime foundDate;
+	private LocalDate foundDate;
 	public String getName()
 	{
 		return name;
@@ -31,12 +32,12 @@ public class Club
 		this.id = id;
 	}
 	
-	public LocalDateTime getFoundDate()
+	public LocalDate getFoundDate()
 	{
 		return foundDate;
 	}
 	
-	public void setFoundDate(LocalDateTime foundDate)
+	public void setFoundDate(LocalDate foundDate)
 	{
 		this.foundDate = foundDate;
 	}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑社团信息</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:inline="javascript">
+        const clubapi = [[@{/club}]];
+        const clubindex = [[@{/club/index}]];
+        const clubid = [[${club.id}]];
+        const csrfName = [[${_csrf.parameterName}]];
+        const csrfToken = [[${_csrf.token}]];
+    </script>
+    <script>
+        async function editClub(elem) {
+            let param = {
+                id: clubid,
+                name: $('#clubName').val(),
+                foundDate: $('#foundDate').val()
+            }
+            param[csrfName] = csrfToken
+            let request = await fetch(clubapi + "/update/" + elem.getAttribute('data-id'),
+                    {
+                        body: JSON.stringify(param),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": 'application/json'
+                        },
+                        credentials: "same-origin"
+                    });
+
+            if(!request.ok)
+                console.log("请求失败");
+
+
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+<!--    <form method="post" th:action="@{/club/update}" >-->
+        <div class="row">
+            <label>
+                社团名称
+                <input type="text" th:name="name" id="clubName" class="col-md-6 form-control" th:value="${club.name}">
+            </label>
+            <label>
+                创立日期
+                <input type="date" th:name="foundDate" id="foundDate" class="col-md-6 form-control" th:value="${club.foundDate}">
+            </label>
+            <input type="hidden" name="id" th:value="${club.id}">
+        </div>
+        <div class="row">
+            <button type="submit" th:data-id="${club.id}" onclick="editClub(this)"
+                    class="btn btn-light col-md">确认</button>
+        </div>
+<!--    </form>-->
+</div>
+</body>
+</html>
