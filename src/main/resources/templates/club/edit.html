@@ -25,15 +25,18 @@
                         body: JSON.stringify(param),
                         method: "POST",
                         headers: {
-                            "Content-Type": 'application/json'
+                            "Content-Type": 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
                         },
                         credentials: "same-origin"
                     });
 
-            if(!request.ok)
-                console.log("请求失败");
-
-
+            if(request.ok) {
+                window.location = clubindex
+            }
+            else {
+                console.log("更改失败");
+            }
         }
     </script>
 </head>
@@ -53,7 +56,7 @@
         </div>
         <div class="row">
             <button type="submit" th:data-id="${club.id}" onclick="editClub(this)"
-                    class="btn btn-light col-md">确认</button>
+                    class="btn btn-primary col-md">确认</button>
         </div>
 <!--    </form>-->
 </div>

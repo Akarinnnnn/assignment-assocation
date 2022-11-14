@@ -31,12 +31,12 @@
 
     <update id="update" parameterType="oop.clubsv3.models.Club">
         update clubs
-        set `name` = '#{name}',
-            `foundDate` = '#{foundDate}'
+        set `name` = #{name},
+            `foundDate` = #{foundDate, jdbcType=DATE}
         where id = #{id}
     </update>
 
     <insert id="new" parameterType="oop.clubsv3.models.Club">
-        insert into clubs (name, foundDate) values ('#{name}', '#{foundDate}')
+        insert into clubs (name, foundDate) values (#{name}, #{foundDate, jdbcType=DATE})
     </insert>
 </mapper>

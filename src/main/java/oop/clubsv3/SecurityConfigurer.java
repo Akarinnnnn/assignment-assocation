@@ -30,7 +30,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 	@Override
 	public void configure(HttpSecurity security) throws Exception
 	{
-		security.cors().disable().httpBasic().and().formLogin(o -> {
+		security.httpBasic().and().formLogin(o -> {
 			o.failureUrl("/login-failure")
 					// .loginPage("/login2")
 					.permitAll(true);
@@ -69,7 +69,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 	}
 	
 	@Override
-	public void configure(WebSecurity web) throws Exception
+	public void configure(WebSecurity web)
 	{
 		// web.ignoring().antMatchers("/login", "/register");
 	}
