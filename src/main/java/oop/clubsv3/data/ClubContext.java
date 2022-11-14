@@ -34,16 +34,19 @@ public class ClubContext
 	public void deleteClub(int id)
 	{
 		session.delete(NameSpace + "delete", id);
+		session.commit();
 	}
 	
 	public void updateOne(Club club)
 	{
 		session.update(NameSpace + "update", club);
+		session.commit();
 	}
 	
 	public void create(Club club)
 	{
 		session.insert(NameSpace + "new", club);
+		session.commit();
 	}
 	
 	public List<Club> searchByName(String name)

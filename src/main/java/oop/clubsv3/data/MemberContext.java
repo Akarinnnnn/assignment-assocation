@@ -34,16 +34,19 @@ public class MemberContext implements DisposableBean
 	public void delete(int mid)
 	{
 		session.delete(NameSpace + "delete", mid);
+		session.commit();
 	}
 	
 	public void update(Member member)
 	{
 		session.update(NameSpace + "update", member);
+		session.commit();
 	}
 	
 	public void create(Member member)
 	{
 		session.insert(NameSpace + "new", member);
+		session.commit();
 	}
 	
 	public List<Member> searchByClubId(Club club)
