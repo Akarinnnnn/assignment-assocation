@@ -11,7 +11,7 @@
     </script>
     <script>
         function appendClub(container, club) {
-            container.append("<div class=\"row\"><div class=\"row\">\n" +
+            container.append("<div class=\"bg-light rounded-2 mb-1 p-1\"><div class=\"row\">\n" +
                 "<div class=\"col-4\">"+ club.name +"</div>\n" +
                 "<div class=\"col-4\" >" + club.foundDate + "</div>\n" +
                 "<div class=\"col-4\">\n" +
@@ -63,6 +63,7 @@
                    type="text" name="clubname"
                    id="clubName" placeholder="社团名称">
             <button class="btn-primary col-md-2" onclick="searchClubClicked()">查找</button>
+            <button class="btn-primary col-md-2" onclick="createNewClicked()">新建</button>
         </div>
         <div class="container col-md" id="search-result" >
             <!-- 记得修改上边的拼接 -->

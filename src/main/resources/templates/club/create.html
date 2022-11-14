@@ -13,14 +13,14 @@
         const csrfToken = [[${_csrf.token}]];
     </script>
     <script>
-        async function editClub(elem) {
+        async function create(elem) {
             let param = {
                 id: clubid,
                 name: $('#clubName').val(),
                 foundDate: $('#foundDate').val()
             }
             param[csrfName] = csrfToken
-            let request = await fetch(clubapi + "/update/" + elem.getAttribute('data-id'),
+            let request = await fetch(clubapi + "/create/",
                     {
                         body: JSON.stringify(param),
                         method: "POST",
@@ -55,10 +55,9 @@
             <input type="hidden" name="id" th:value="${club.id}">
         </div>
         <div class="row">
-            <button type="submit" th:data-id="${club.id}" onclick="editClub(this)"
+            <button onclick="create(this)"
                     class="btn btn-primary col-md">确认</button>
         </div>
-
 </div>
 </body>
 </html>

@@ -32,4 +32,10 @@ public class ClubView
 		model.addAttribute("club", club);
 		return "/club/edit";
 	}
+	
+	@RequestMapping("/create")
+	public String create(Model model)
+	{
+		return "/club/create";
+	}
 }
