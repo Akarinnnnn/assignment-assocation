@@ -6,8 +6,9 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
-        const baseEndpoint = [[@{/club}]];
-        const clubindex = [[@{/club/index}]];
+        const clubapi = [[@{/api/club}]];
+        const csrfName = [[${_csrf.parameterName}]];
+        const csrfToken = [[${_csrf.token}]];
     </script>
     <script>
         function appendClub(container, club) {
@@ -23,26 +24,38 @@
             )
         }
 
-        function deleteClub(elem) {
-            $.ajax({
-                url: baseEndpoint + "/delete/" + elem.getAttribute('data-id'),
-                type: "POST",
-                dataType: 'json',
-                success: (data, textstatus) => {
-                    elem.remove();
-                    alert("已成功删除！");
-                }
-            })
+        async function deleteClub(elem) {
+            let param = {}
+            param[csrfName] = csrfToken
+            let recordid = elem.getAttribute('data-id');
+            let request = await fetch(clubapi + "/delete/" + recordid,
+                {
+                    body: JSON.stringify(param),
+                    method: "POST",
+                    headers: {
+                        "Content-Type": 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    credentials: "same-origin"
+                });
+
+            if (request.ok) {
+                alert("已成功删除！");
+                temp.parentElement.parentElement.parentElement.remove();
+                // document.querySelector("[data-record-id='"+recordid+"']")
+            } else {
+                console.log(request.statusText);
+            }
         }
 
         function goEdit(elem) {
-            window.location = baseEndpoint + "/edit?id=" + elem.getAttribute('data-id')
+            window.location = clubapi + "/edit?id=" + elem.getAttribute('data-id')
         }
 
         function searchClubClicked() {
             let se = $("#clubName").val();
             $.ajax({
-                url: baseEndpoint + "/search/" + encodeURIComponent(se),
+                url: clubapi + "/search/" + encodeURIComponent(se),
                 type: "GET",
                 dataType: "json",
                 success: (data, textStatus) => {
@@ -62,12 +75,12 @@
             <input class="form-control col-md-10"
                    type="text" name="clubname"
                    id="clubName" placeholder="社团名称">
-            <button class="btn-primary col-md-2" onclick="searchClubClicked()">查找</button>
-            <button class="btn-primary col-md-2" onclick="createNewClicked()">新建</button>
+            <button class="btn btn-outline-primary col-md-2" onclick="searchClubClicked()">查找</button>
+            <a class="btn btn-outline-primary col-md-2" href="/club/create">新建</a>
         </div>
         <div class="container col-md" id="search-result" >
             <!-- 记得修改上边的拼接 -->
-            <div class="bg-light rounded-2 mb-1 p-1" th:each="club:${clubs}">
+            <div class="bg-light rounded-2 mb-1 p-1" th:data-record-id="${club.id}" th:each="club:${clubs}">
                 <div class="row">
                     <div class="col-4" th:text="${club.name}"></div>
                     <div class="col-4" th:text="${club.foundDate}"></div>

@@ -42,12 +42,13 @@ create table authorities
 );
 
 DELIMITER $$
-CREATE OR REPLACE TRIGGER `TriggerDeleteClub` BEFORE DELETE
-ON clubs FOR EACH ROW
-BEGIN
-  DELETE FROM `activities` WHERE `activities`.cid = old.id;
-  DELETE FROM `members` WHERE `members`.cid = old.id;
-  # delete from `clubs` where id = cid;
-END
-$$
+DROP PROCEDURE IF EXISTS `procDeleteClub`$$
+
+ CREATE PROCEDURE `procDeleteClub`(cid INT)
+    BEGIN
+        DELETE FROM `activities` WHERE `activities`.cid = cid;
+        DELETE FROM `members` WHERE `members`.cid = cid;
+        DELETE FROM `clubs` WHERE id = cid;
+    END $$
+
 DELIMITER ;

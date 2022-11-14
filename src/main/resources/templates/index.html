@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>主页</title>
-<!-- <script type="text/javascript" th:src="@{/JQuery/jquery.min.js}"></script> -->
+    <script type="text/javascript" th:src="@{/JQuery/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 </head>
 <body>
 欢迎使用学生社团管理系统<br>
-<a th:href="@{/member.html}">成员管理</a>
+<a class="btn btn-outline-primary" th:href="@{/club/index}">社团管理</a>
+<a class="btn btn-outline-primary" th:href="@{/member.html}">成员管理</a>
 </body>
 </html>

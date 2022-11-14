@@ -6,16 +6,14 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
-        const clubapi = [[@{/club}]];
+        const clubapi = [[@{/api/club}]];
         const clubindex = [[@{/club/index}]];
-        const clubid = [[${club.id}]];
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
     </script>
     <script>
-        async function create(elem) {
+        async function create() {
             let param = {
-                id: clubid,
                 name: $('#clubName').val(),
                 foundDate: $('#foundDate').val()
             }
@@ -46,13 +44,15 @@
         <div class="row">
             <label>
                 社团名称
-                <input type="text" th:name="name" id="clubName" class="col-md-6 form-control" th:value="${club.name}">
+                <input type="text" th:name="name" id="clubName"
+                       class="col-md-6 form-control"
+                       th:placeholder="社团名称">
             </label>
             <label>
                 创立日期
-                <input type="date" th:name="foundDate" id="foundDate" class="col-md-6 form-control" th:value="${club.foundDate}">
+                <input type="date" th:name="foundDate" id="foundDate"
+                       class="col-md-6 form-control">
             </label>
-            <input type="hidden" name="id" th:value="${club.id}">
         </div>
         <div class="row">
             <button onclick="create(this)"

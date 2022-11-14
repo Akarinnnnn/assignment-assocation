@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin()
-@RequestMapping("/club")
+@RequestMapping("/api/club")
 public class ClubController
 {
 	final ClubContext db;
