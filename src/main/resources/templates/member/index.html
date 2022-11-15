@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>社团管理页面</title>
+    <title>成员管理</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
@@ -13,44 +13,19 @@
     </script>
     <script>
         function appendClub(container, club) {
-            container.append("<div class=\"bg-light rounded-2 mb-1 p-1\"><div class=\"row\">\n" +
-                "<div class=\"col-4\">"+ club.name +"</div>\n" +
-                "<div class=\"col-4\" >" + club.foundDate + "</div>\n" +
-                "<div class=\"col-4\">\n" +
-                "   <a class=\"btn btn-primary\" data-id=\""+ club.id +"\" onclick=\"goEdit(this)\">编辑</a>\n" +
-                "   <button class=\"btn btn-danger\" data-id=\""+ club.id +
-                "\" onclick=\"deleteClub(this)\">删除</button>\n" +
-                " </div>\n" +
-                "</div></div>"
-            )
-        }
-
-        async function deleteClub(elem) {
-            let param = {}
-            param[csrfName] = csrfToken
-            let recordid = elem.getAttribute('data-id');
-            let request = await fetch(clubapi + "/delete/" + recordid,
-                {
-                    body: JSON.stringify(param),
-                    method: "POST",
-                    headers: {
-                        "Content-Type": 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    credentials: "same-origin"
-                });
-
-            if (request.ok) {
-                alert("已成功删除！");
-                elem.parentElement.parentElement.parentElement.remove();
-                // document.querySelector("[data-record-id='"+recordid+"']")
-            } else {
-                console.log(request.statusText);
-            }
+            container.append("<div class=\"bg-light rounded-2 mb-1 p-1\">\n    " +
+            "<div class=\"row\">\n" +
+            "        <div class=\"col-4\">"+ club.name+"</div>\n        " +
+            "<div class=\"col-4\"">+ club.foundDate +"</div>\n" +
+            "        <div class=\"col-4\">\n" +
+            "            <a class=\"btn btn-primary\" data-id=\""+club.id+"\" onclick=\"goEdit(this)\">编辑</a>\n" +
+            "        </div>\n    " +
+            "</div>\n" +
+            "</div>")
         }
 
         function goEdit(elem) {
-            window.location = clubview + "/edit?id=" + elem.getAttribute('data-id')
+            window.location = clubview + "/showClub?id=" + elem.getAttribute('data-id')
         }
 
         function searchClubClicked() {
@@ -72,12 +47,12 @@
 </head>
 <body>
     <div class="container">
+        <p>查找待编辑的社团</p>
         <div class="row d-flex">
             <input class="form-control col-md-10"
                    type="text" name="clubname"
                    id="clubName" placeholder="社团名称">
             <button class="btn btn-outline-primary col-md-2" onclick="searchClubClicked()">查找</button>
-            <a class="btn btn-outline-primary col-md-2" href="/club/create">新建</a>
         </div>
         <div class="container col-md" id="search-result" >
             <!-- 记得修改上边的拼接 -->
@@ -87,7 +62,6 @@
                     <div class="col-4" th:text="${club.foundDate}"></div>
                     <div class="col-4">
                         <a class="btn btn-primary" th:data-id="${club.id}" onclick="goEdit(this)">编辑</a>
-                        <button class="btn btn-danger" th:data-id="${club.id}" onclick="deleteClub(this)">删除</button>
                     </div>
                 </div>
             </div>

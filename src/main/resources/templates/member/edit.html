@@ -6,9 +6,9 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
-        const clubapi = [[@{/api/club}]];
-        const clubindex = [[@{/club/index}]];
-        const clubid = [[${club.id}]];
+        const memberapi = [[@{/api/member}]];
+        const memberindex = [[@{/member/index}]];
+        const mid = [[${member.id}]];
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
     </script>
@@ -45,11 +45,11 @@
 <!--    <form method="post" th:action="@{/club/update}" >-->
         <div class="row">
             <label>
-                社团名称
+                学号
                 <input type="text" th:name="name" id="clubName" class="col-md-6 form-control" th:value="${club.name}">
             </label>
             <label>
-                创立日期
+                职位
                 <input type="date" th:name="foundDate" id="foundDate" class="col-md-6 form-control" th:value="${club.foundDate}">
             </label>
             <input type="hidden" name="id" th:value="${club.id}">

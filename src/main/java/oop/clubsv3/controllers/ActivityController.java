@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin()
-@RequestMapping("/activity")
+@RequestMapping("/api/activity")
 public class ActivityController
 {
 	private final ActivityContext db;

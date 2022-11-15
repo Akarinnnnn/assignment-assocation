@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin()
-@RequestMapping("/member")
+@RequestMapping("/api/member")
 public class MemberController
 {
 	private final MemberContext db;
