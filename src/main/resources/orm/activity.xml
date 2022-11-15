@@ -24,15 +24,15 @@
 
     <update id="update" parameterType="oop.clubsv3.models.Activity">
         update activities
-        set `cid` = '#{cid}',
-            `location` = '#{location}',
-            `timestart` = '#{timestart}',
-            `timeend` = '#{timeend}'
+        set `cid` = #{cid},
+            `location` = #{location},
+            `timestart` = #{timestart},
+            `timeend` = #{timeend}
         where aid = #{id}
     </update>
 
     <insert id="new" parameterType="oop.clubsv3.models.Activity">
         insert into activities (cid, aid, location, timestart, timeend)
-        values (#{cid}, #{sid}, '#{location}','#{timestart}', '#{timeend}')
+        values (#{cid}, #{sid}, #{location},#{timestart}, #{timeend})
     </insert>
 </mapper>
