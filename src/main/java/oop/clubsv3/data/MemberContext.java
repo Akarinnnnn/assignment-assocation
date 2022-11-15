@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class MemberContext implements DisposableBean
 {
-	private static final String NameSpace = "oop.clubsv3.models.Club.";
+	private static final String NameSpace = "oop.clubsv3.models.Member.";
 	
 	private final SqlSession session;
 	

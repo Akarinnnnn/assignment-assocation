@@ -12,12 +12,12 @@
     <!--  返回List  -->
     <select id="getByMid" parameterType="Integer"
             resultType="oop.clubsv3.models.Member">
-        select * from members where mid = #{id}
+        select * from members where mid = #{mid}
     </select>
 
     <select id="getByCid" parameterType="Integer"
             resultType="oop.clubsv3.models.Member">
-        select * from members where cid = #{id}
+        select * from members where cid = #{mid}
     </select>
 
     <delete id="delete" parameterType="Integer">
@@ -30,7 +30,7 @@
         set `cid` = #{cid},
             `sid` = #{sid},
             `position` = #{position}
-        where mid = #{id}
+        where mid = #{mid}
     </update>
 
     <insert id="new" parameterType="oop.clubsv3.models.Club">

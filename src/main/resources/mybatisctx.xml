@@ -17,5 +17,7 @@
     </environments>
     <mappers>
         <mapper resource="orm/club.xml" />
+        <mapper resource="orm/member.xml" />
+        <mapper resource="orm/activity.xml" />
     </mappers>
 </configuration>

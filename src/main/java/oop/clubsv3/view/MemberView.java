@@ -47,9 +47,10 @@ public class MemberView
 		return "/member/edit";
 	}
 	
-	@RequestMapping("/create")
-	public String create(Model model)
+	@RequestMapping(value = "/create", params = "id")
+	public String create(@RequestParam("id") int cid, Model model)
 	{
-		return "/club/create";
+		model.addAttribute("cid", cid);
+		return "/member/create";
 	}
 }

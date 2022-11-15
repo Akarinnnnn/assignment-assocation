@@ -2,27 +2,25 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>编辑社团信息</title>
+    <title>添加成员</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
-        const memberapi = [[@{/api/member}]];
-        const mid = [[${member.mid}]];
-        const cid = [[${member.cid}]];
-        const memberIndex = [[@{/member/}]];
+        const api = [[@{/api/member}]];
+        const index = [[@{/member/index}]];
+        const cid = [[${cid}]]
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
     </script>
     <script>
-        async function editMember(elem) {
+        async function create() {
             let param = {
-                id: mid,
                 cid: cid,
                 sid: $('#sid').val(),
                 position: $('#position').val()
             }
             param[csrfName] = csrfToken
-            let request = await fetch(memberapi + "/update/" + elem.getAttribute('data-id'),
+            let request = await fetch(api + "/create/",
                     {
                         body: JSON.stringify(param),
                         method: "POST",
@@ -34,7 +32,7 @@
                     });
 
             if(request.ok) {
-                window.location = memberIndex
+                window.location = index
             }
             else {
                 console.log("更改失败");
@@ -49,16 +47,16 @@
             <label>
                 学号
                 <input type="text" th:name="sid" id="sid"
-                       class="col-md-6 form-control" th:value="${member.sid}">
+                       class="col-md-6 form-control">
             </label>
             <label>
                 职位
                 <input type="text" th:name="position" id="position"
-                       class="col-md-6 form-control" th:value="${member.position}">
+                       class="col-md-6 form-control">
             </label>
         </div>
         <div class="row">
-            <button type="submit" th:data-id="${member.mid}" onclick="editMember(this)"
+            <button onclick="create(this)"
                     class="btn btn-primary col-md">确认</button>
         </div>
 </div>

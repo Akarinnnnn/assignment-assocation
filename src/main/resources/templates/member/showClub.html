@@ -7,66 +7,63 @@
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
         const clubapi = [[@{/api/club}]];
-        const clubmember = [[@{/api/member}]];
+        const memberapi = [[@{/api/member}]];
+        const editmember = [[@{/member/edit}]];
         const clubindex = [[@{/club/index}]];
         const clubid = [[${club.id}]];
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
     </script>
     <script>
-        async function editClub(elem) {
-            let param = {
-                id: clubid,
-                name: $('#clubName').val(),
-                foundDate: $('#foundDate').val()
-            }
-            param[csrfName] = csrfToken
-            let request = await fetch(clubapi + "/update/" + elem.getAttribute('data-id'),
-                    {
-                        body: JSON.stringify(param),
-                        method: "POST",
-                        headers: {
-                            "Content-Type": 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        credentials: "same-origin"
-                    });
+        function goEdit(elem) {
+            window.location = editmember + "?id=" + elem.getAttribute("data-id")
+        }
 
-            if(request.ok) {
-                window.location = clubindex
-            }
-            else {
-                console.log("更改失败");
+        async function deleteMember(elem) {
+            let param = {}
+            param[csrfName] = csrfToken
+            let recordid = elem.getAttribute('data-id');
+            let request = await fetch(memberapi + "/delete/" + recordid,
+                {
+                    body: JSON.stringify(param),
+                    method: "POST",
+                    headers: {
+                        "Content-Type": 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    credentials: "same-origin"
+                });
+
+            if (request.ok) {
+                alert("已成功删除！");
+                elem.parentElement.parentElement.parentElement.remove();
+                // document.querySelector("[data-record-id='"+recordid+"']")
+            } else {
+                console.log(request.statusText);
             }
         }
     </script>
 </head>
 <body>
 <div class="container">
-<!--    <form method="post" th:action="@{/club/update}" >-->
         <div class="row">
-            <label>
-                社团名称
-                <input type="text" th:name="name" id="clubName" class="col-md-6 form-control" th:value="${club.name}">
-            </label>
-            <label>
-                创立日期
-                <input type="date" th:name="foundDate" id="foundDate" class="col-md-6 form-control" th:value="${club.foundDate}">
-            </label>
-            <input type="hidden" name="id" th:value="${club.id}">
-        </div>
-        <div class="row">
-            <button type="submit" th:data-id="${club.id}" onclick="editClub(this)"
-                    class="btn btn-primary col-md">确认</button>
+            社团名称：<span th:text="${club.name}"></span>
+            <a class="btn btn-outline-primary col-md-2"
+               th:href="@{/member/create} + '?id=' + ${club.id}">添加成员</a>
         </div>
         <div class="container" id="member-list">
             <div class="bg-light rounded-2 mb-1 p-1" th:each="member:${members}">
                 <div class="row">
-                    <div class="col-4" th:text="${member.sid}"></div>
-                    <div class="col-4" th:text="${member.position}"></div>
+                    <div class="col-4">
+                        <span>学号：</span><span th:text="${member.sid}"></span>
+                    </div>
+                    <div class="col-4">
+                        <span>职位：</span><span th:text="${member.position}"></span>
+                    </div>
                     <div class="col-4">
                         <a class="btn btn-primary" th:data-id="${member.mid}" onclick="goEdit(this)">编辑</a>
-                        <button class="btn btn-danger" th:data-id="${member.mid}" onclick="deleteClub(this)">删除</button>
+                        <a class="btn btn-primary" th:data-id="${member.mid}" onclick="goEdit(this)">转移所属</a>
+                        <button class="btn btn-danger" th:data-id="${member.mid}" onclick="deleteMember(this)">删除</button>
                     </div>
                 </div>
             </div>
