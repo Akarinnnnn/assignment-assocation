@@ -9,7 +9,7 @@
         const clubapi = [[@{/api/club}]];
         const memberapi = [[@{/api/member}]];
         const editmember = [[@{/member/edit}]];
-        const clubindex = [[@{/club/index}]];
+        const transfer = [[@{/member/transfer}]];
         const clubid = [[${club.id}]];
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
@@ -17,6 +17,10 @@
     <script>
         function goEdit(elem) {
             window.location = editmember + "?id=" + elem.getAttribute("data-id")
+        }
+
+        function goTransfer(elem) {
+            window.location = transfer + "?id=" + elem.getAttribute("data-id")
         }
 
         async function deleteMember(elem) {
@@ -62,7 +66,7 @@
                     </div>
                     <div class="col-4">
                         <a class="btn btn-primary" th:data-id="${member.mid}" onclick="goEdit(this)">编辑</a>
-                        <a class="btn btn-primary" th:data-id="${member.mid}" onclick="goEdit(this)">转移所属</a>
+                        <a class="btn btn-primary" th:data-id="${member.mid}" onclick="goTransfer(this)">转移所属</a>
                         <button class="btn btn-danger" th:data-id="${member.mid}" onclick="deleteMember(this)">删除</button>
                     </div>
                 </div>

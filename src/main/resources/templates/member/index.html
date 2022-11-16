@@ -15,11 +15,11 @@
         function appendClub(container, club) {
             container.append("<div class=\"bg-light rounded-2 mb-1 p-1\">\n    " +
             "<div class=\"row\">\n" +
-            "        <div class=\"col-4\">"+ club.name+"</div>\n        " +
-            "<div class=\"col-4\"">+ club.foundDate +"</div>\n" +
-            "        <div class=\"col-4\">\n" +
-            "            <a class=\"btn btn-primary\" data-id=\""+club.id+"\" onclick=\"goEdit(this)\">编辑</a>\n" +
-            "        </div>\n    " +
+            "    <div class=\"col-4\">"+ club.name+"</div>\n        " +
+            "    <div class=\"col-4\"">+ club.foundDate +"</div>\n<div class=\"row\">\n" +
+            "    <div class=\"col-4\">\n" +
+            "        <a class=\"btn btn-primary\" data-id=\""+club.id+"\" onclick=\"goEdit(this)\">编辑</a>\n    " +
+            "    </div>\n    " +
             "</div>\n" +
             "</div>")
         }

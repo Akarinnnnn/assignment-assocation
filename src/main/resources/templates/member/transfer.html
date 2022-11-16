@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>转移成员所属</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:inline="javascript">
+        const clubapi = [[@{/api/club}]];
+        const memberapi = [[@{/api/member}]];
+        const memberView = [[@{/member}]];
+        const csrfName = [[${_csrf.parameterName}]];
+        const csrfToken = [[${_csrf.token}]];
+
+        const data = {
+            mid: [[${member.mid}]],
+            cid: [[${member.cid}]],
+            sid: [[${member.sid}]],
+            position: [[${member.position}]]
+        }
+    </script>
+    <script>
+        function appendClub(container, club) {
+            container.append("<div class=\"bg-light rounded-2 mb-1 p-1\">\n    " +
+                "<div class=\"row\">\n" +
+                "    <div class=\"col-4\">"+ club.name+"</div>\n        " +
+                "    <div class=\"col-4\"">+ club.foundDate +"</div>\n<div class=\"row\">\n" +
+                "    <div class=\"col-4\">\n" +
+                "        <a class=\"btn btn-primary\" data-id=\""+club.id+"\" onclick=\"goEdit(this)\">转移</a>\n    " +
+                "    </div>\n    " +
+                "</div>\n" +
+                "</div>")
+        }
+
+        async function transferTo(elem) {
+
+            let param = data
+            param[csrfName] = csrfToken
+            data.cid = elem.getAttribute('data-id');
+            let request = await fetch(memberapi + "/update/" + recordid,
+                {
+                    body: JSON.stringify(param),
+                    method: "POST",
+                    headers: {
+                        "Content-Type": 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    credentials: "same-origin"
+                });
+
+            if (request.ok) {
+                alert("已成功删除！");
+                elem.parentElement.parentElement.parentElement.remove();
+                // document.querySelector("[data-record-id='"+recordid+"']")
+            } else {
+                console.log(request.statusText);
+            }
+            window.location = memberView + "/showClub?id=" + elem.getAttribute('data-id')
+        }
+
+        function searchClubClicked() {
+            let se = $("#clubName").val();
+            $.ajax({
+                url: clubapi + "/search/" + encodeURIComponent(se),
+                type: "GET",
+                dataType: "json",
+                success: (data, textStatus) => {
+                    let container = $('#search-result');
+                    container.empty();
+                    for (const club of data) {
+                        appendClub(container, club)
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <p>查找社团</p>
+    <div class="row d-flex">
+        <input class="form-control col-md-10"
+               type="text" name="clubname"
+               id="clubName" placeholder="社团名称">
+        <button class="btn btn-outline-primary col-md-2" onclick="searchClubClicked()">查找</button>
+    </div>
+    <div class="container col-md" id="search-result" >
+        <!-- 记得修改上边的拼接 -->
+        <div class="bg-light rounded-2 mb-1 p-1" th:data-record-id="${club.id}" th:each="club:${clubs}">
+            <div class="row">
+                <div class="col-4" th:text="${club.name}"></div>
+                <div class="col-4" th:text="${club.foundDate}"></div>
+                <div class="col-4">
+                    <a class="btn btn-primary" th:data-id="${club.id}" onclick="transferTo(this)">转移</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

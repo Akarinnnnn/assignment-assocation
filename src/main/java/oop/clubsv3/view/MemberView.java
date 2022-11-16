@@ -53,4 +53,13 @@ public class MemberView
 		model.addAttribute("cid", cid);
 		return "/member/create";
 	}
+	
+	@RequestMapping(value = "/transfer", params = "id")
+	public String transfer(@RequestParam("id") int mid, Model model)
+	{
+		model.addAttribute("member", db.getMember(mid));
+		model.addAttribute("clubs", dbClub.getOnePage(0));
+		
+		return "/member/transfer";
+	}
 }
