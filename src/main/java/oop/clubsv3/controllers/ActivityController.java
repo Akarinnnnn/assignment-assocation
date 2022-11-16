@@ -9,7 +9,6 @@ import javax.annotation.PreDestroy;
 import java.util.List;
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/api/activity")
 public class ActivityController
 {
@@ -28,5 +27,25 @@ public class ActivityController
 	public List<Activity> fromClub(@PathVariable("id") int cid)
 	{
 		return db.getByClub(cid);
+	}
+	
+	@PostMapping("/create")
+	public void create(@RequestBody Activity activity)
+	{
+		db.create(activity);
+	}
+	
+	@PostMapping("/update/{id}")
+	public void update(@PathVariable("id") int aid,
+					   @RequestBody Activity activity)
+	{
+		activity.setAid(aid);
+		db.update(activity);
+	}
+	
+	@PostMapping("/delete/{id}")
+	public void update(@PathVariable("id") int aid)
+	{
+		db.delete(aid);
 	}
 }

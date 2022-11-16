@@ -7,6 +7,9 @@ public class Activity
 {
 	private int aid;
 	private String location;
+	
+	
+	private String name;
 	private int cid;
 	private LocalDate timestart, timeend;
 	
@@ -38,6 +41,15 @@ public class Activity
 	public void setCid(int cid)
 	{
 		this.cid = cid;
+	}
+	public String getName()
+	{
+		return name;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 	
 	public LocalDate getTimestart()

@@ -10,6 +10,7 @@ public interface ActivityContext
 {
 	Activity getOne(int id);
 	List<Activity> getByClub(int cid);
+	List<Activity> getAll(int cid);
 	void delete(int id);
 	void create(Activity activity);
 	void update(Activity activity);

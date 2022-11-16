@@ -21,15 +21,15 @@
     </script>
     <script>
         function appendClub(container, club) {
-            container.append("<div class=\"bg-light rounded-2 mb-1 p-1\">\n    " +
-                "<div class=\"row\">\n" +
-                "    <div class=\"col-4\">"+ club.name+"</div>\n        " +
-                "    <div class=\"col-4\"">+ club.foundDate +
-                "    <div class=\"col-4\">\n" +
-                "        <a class=\"btn btn-primary\" data-id=\""+club.id+"\" onclick=\"goEdit(this)\">转移</a>\n    " +
-                "    </div>\n    " +
-                "</div>\n" +
-                "</div>")
+            container.append("<div class=\"bg-light rounded-2 mb-1 p-1\"><div class=\"row\">\n" +
+            "<div class=\"col-4\">"+ club.name +"</div>\n" +
+            "<div class=\"col-4\" >" + club.foundDate + "</div>\n" +
+            "<div class=\"col-4\">\n" +
+            "   <a class=\"btn btn-primary\" data-id=\""+ club.id +"\" onclick=\"goEdit(this)\">编辑</a>\n" +
+            "   <button class=\"btn btn-danger\" data-id=\""+ club.id +
+            "\" onclick=\"deleteClub(this)\">删除</button>\n" +
+            " </div>\n" +
+            "</div></div>")
         }
 
         async function transferTo(elem) {
@@ -37,7 +37,7 @@
             let param = data
             param[csrfName] = csrfToken
             data.cid = elem.getAttribute('data-id');
-            let request = await fetch(memberapi + "/update/" + param.mid,
+            let request = await fetch(memberapi + "/update/" + recordid,
                 {
                     body: JSON.stringify(param),
                     method: "POST",
@@ -49,8 +49,9 @@
                 });
 
             if (request.ok) {
-                alert("转移成功！");
+                alert("已成功删除！");
                 elem.parentElement.parentElement.parentElement.remove();
+                // document.querySelector("[data-record-id='"+recordid+"']")
             } else {
                 console.log(request.statusText);
             }

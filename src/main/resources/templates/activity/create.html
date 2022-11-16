@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加成员</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:inline="javascript">
+        const api = [[@{/api/member}]];
+        const index = [[@{/member/index}]];
+        const cid = [[${cid}]]
+        const csrfName = [[${_csrf.parameterName}]];
+        const csrfToken = [[${_csrf.token}]];
+    </script>
+    <script>
+        async function create() {
+            let param = {
+                cid: cid,
+                sid: $('#sid').val(),
+                position: $('#position').val()
+            }
+            param[csrfName] = csrfToken
+            let request = await fetch(api + "/create/",
+                    {
+                        body: JSON.stringify(param),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        credentials: "same-origin"
+                    });
+
+            if(request.ok) {
+                window.location = index
+            }
+            else {
+                console.log("更改失败");
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+<!--    <form method="post" th:action="@{/club/update}" >-->
+        <div class="row">
+            <label>
+                学号
+                <input type="text" th:name="sid" id="sid"
+                       class="col-md-6 form-control">
+            </label>
+            <label>
+                职位
+                <input type="text" th:name="position" id="position"
+                       class="col-md-6 form-control">
+            </label>
+        </div>
+        <div class="row">
+            <button onclick="create(this)"
+                    class="btn btn-primary col-md">确认</button>
+        </div>
+</div>
+</body>
+</html>

@@ -13,6 +13,10 @@
         select * from activities where aid = #{id}
     </select>
 
+    <select id="getAll" parameterType="Integer" resultType="oop.clubsv3.models.Activity">
+        select * from activities
+    </select>
+
     <select id="getByClub" parameterType="Integer" resultType="oop.clubsv3.models.Activity">
         select * from activities where cid = #{cid}
     </select>
@@ -25,6 +29,7 @@
     <update id="update" parameterType="oop.clubsv3.models.Activity">
         update activities
         set `cid` = #{cid},
+            `name` = #{name}
             `location` = #{location},
             `timestart` = #{timestart},
             `timeend` = #{timeend}
@@ -32,7 +37,7 @@
     </update>
 
     <insert id="new" parameterType="oop.clubsv3.models.Activity">
-        insert into activities (cid, aid, location, timestart, timeend)
-        values (#{cid}, #{sid}, #{location},#{timestart}, #{timeend})
+        insert into activities (cid, aid, `name`, location, timestart, timeend)
+        values (#{cid}, #{sid}, #{name}, #{location}, #{timestart}, #{timeend})
     </insert>
 </mapper>
