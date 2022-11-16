@@ -7,19 +7,20 @@
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
         const memberapi = [[@{/api/member}]];
-        const mid = [[${member.mid}]];
-        const cid = [[${member.cid}]];
+        const aid = [[${activity.aid}]];
+        const cid = [[${activity.cid}]];
         const memberIndex = [[@{/member/}]];
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
     </script>
     <script>
-        async function editMember(elem) {
+        async function editActivity(elem) {
             let param = {
-                id: mid,
+                aid: aid,
                 cid: cid,
-                sid: $('#sid').val(),
-                position: $('#position').val()
+                name: $('#name').val(),
+                timestart: $('#timestart').val(),
+                timeend: $('#timeend').val()
             }
             param[csrfName] = csrfToken
             let request = await fetch(memberapi + "/update/" + elem.getAttribute('data-id'),
@@ -44,21 +45,31 @@
 </head>
 <body>
 <div class="container">
-<!--    <form method="post" th:action="@{/club/update}" >-->
+<!--  编辑模版  -->
         <div class="row">
             <label>
-                学号
-                <input type="text" th:name="sid" id="sid"
-                       class="col-md-6 form-control" th:value="${member.sid}">
+                活动名
+                <input type="text" th:name="name" id="name"
+                       class="col-md form-control" th:value="${activity.name}">
             </label>
             <label>
-                职位
-                <input type="text" th:name="position" id="position"
-                       class="col-md-6 form-control" th:value="${member.position}">
+                举办地点
+                <input type="text" th:name="location" id="location"
+                       class="col-md form-control" th:value="${activity.location}">
+            </label>
+            <label>
+                开始时间
+                <input type="datetime-local" th:name="timestart" id="timestart"
+                       class="col-md form-control" th:value="${activity.location}">
+            </label>
+            <label>
+                结束时间
+                <input type="datetime-local" th:name="timeend" id="timeend"
+                       class="col-md form-control" th:value="${activity.location}">
             </label>
         </div>
         <div class="row">
-            <button type="submit" th:data-id="${member.mid}" onclick="editMember(this)"
+            <button type="submit" th:data-id="${activity.aid}" onclick="editActivity(this)"
                     class="btn btn-primary col-md">确认</button>
         </div>
 </div>

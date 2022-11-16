@@ -11,7 +11,7 @@ public class Activity
 	
 	private String name;
 	private int cid;
-	private LocalDate timestart, timeend;
+	private LocalDateTime timestart, timeend;
 	
 	public int getAid()
 	{
@@ -52,22 +52,22 @@ public class Activity
 		this.name = name;
 	}
 	
-	public LocalDate getTimestart()
+	public LocalDateTime getTimestart()
 	{
 		return timestart;
 	}
 	
-	public void setTimestart(LocalDate timestart)
+	public void setTimestart(LocalDateTime timestart)
 	{
 		this.timestart = timestart;
 	}
 	
-	public LocalDate getTimeend()
+	public LocalDateTime getTimeend()
 	{
 		return timeend;
 	}
 	
-	public void setTimeend(LocalDate timeend)
+	public void setTimeend(LocalDateTime timeend)
 	{
 		this.timeend = timeend;
 	}
