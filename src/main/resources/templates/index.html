@@ -17,10 +17,10 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbar-toggle">
 				<div class="navbar-nav">
-					<a class="nav-link" href="index.html">社团管理</a>
-					<a class="nav-link" href="../member/index.html">社团成员管理</a>
-					<a class="nav-link" href="../activity/index.html">活动管理</a>
-				</div>
+					<a class="nav-link" th:href="@{./index.html}">社团管理</a>
+					<a class="nav-link" th:href="@{member/index.html}">社团成员管理</a>
+					<a class="nav-link active" th:href="@{/activity/index.html}">活动管理</a>
+					</div>
 			</div>
 		</nav>
 		<div class="container-fluid bg-light py-5">
