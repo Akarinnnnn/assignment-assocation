@@ -10,7 +10,7 @@
 <!--    </select>-->
 
     <select id="getOne" parameterType="Integer" resultType="oop.clubsv3.models.Activity">
-        select * from activities where aid = #{id}
+        select * from activities where aid = #{aid}
     </select>
 
     <select id="getAll" parameterType="Integer" resultType="oop.clubsv3.models.Activity">
@@ -23,21 +23,21 @@
 
     <delete id="delete" parameterType="Integer">
         delete from activities
-        where aid = #{id}
+        where aid = #{aid}
     </delete>
 
     <update id="update" parameterType="oop.clubsv3.models.Activity">
         update activities
         set `cid` = #{cid},
-            `name` = #{name}
+            `name` = #{name},
             `location` = #{location},
             `timestart` = #{timestart},
             `timeend` = #{timeend}
-        where aid = #{id}
+        where aid = #{aid}
     </update>
 
-    <insert id="new" parameterType="oop.clubsv3.models.Activity">
-        insert into activities (cid, aid, `name`, location, timestart, timeend)
-        values (#{cid}, #{sid}, #{name}, #{location}, #{timestart}, #{timeend})
+    <insert id="create" parameterType="oop.clubsv3.models.Activity">
+        insert into activities (cid, `name`, location, timestart, timeend)
+        values (#{cid}, #{name}, #{location}, #{timestart}, #{timeend})
     </insert>
 </mapper>
