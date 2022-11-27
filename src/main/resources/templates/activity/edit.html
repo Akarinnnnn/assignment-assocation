@@ -61,28 +61,36 @@
 			</div>
 		</div>
 	</nav>
-        <div class="row">
-            <label>
-                活动名
-                <input type="text" th:name="name" id="name"
-                       class="col-md form-control" th:value="${activity.name}">
-            </label>
-            <label>
-                举办地点
-                <input type="text" th:name="location" id="location"
-                       class="col-md form-control" th:value="${activity.location}">
-            </label>
-            <label>
-                开始时间
-                <input type="datetime-local" th:name="timestart" id="timestart"
-                       class="col-md form-control" th:value="${activity.location}">
-            </label>
-            <label>
-                结束时间
-                <input type="datetime-local" th:name="timeend" id="timeend"
-                       class="col-md form-control" th:value="${activity.location}">
-            </label>
-        </div>
+		<div class="row">
+			<div class="input-group mb-2 col-md-6">
+				<div class="input-group-prepend">
+					<span class="input-group-text">活动名</span>
+				</div>
+				<input type="text" th:name="name" id="name" class="col-md form-control" th:value="${activity.name}">
+			</div>
+			<div class="input-group mb-2 col-md-6">
+				<div class="input-group-prepend">
+					<span class="input-group-text">举办地点</span>
+				</div>
+				<input type="text" th:name="location" id="location" class="col-md form-control" th:value="${activity.location}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-group mb-2 col-md-6">
+				<div class="input-group-prepend">
+					<span class="input-group-text">开始时间</span>
+				</div>
+				<input type="datetime-local" th:name="timestart" id="timestart" class="col-md form-control"
+					th:value="${activity.timestart}">
+			</div>
+			<div class="input-group mb-2 col-md-6">
+				<div class="input-group-prepend">
+					<span class="input-group-text">结束时间</span>
+				</div>
+				<input type="datetime-local" th:name="timeend" id="timeend" class="col-md form-control"
+					th:value="${activity.timeend}">
+			</div>
+		</div>
         <div class="row">
             <button type="submit" th:data-id="${activity.aid}" onclick="editActivity(this)"
                     class="btn btn-primary col-md">确认</button>

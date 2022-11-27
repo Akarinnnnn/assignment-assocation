@@ -59,16 +59,18 @@
 		</div>
 	</nav>
         <div class="row">
-            <label>
-                学号
-                <input type="text" th:name="sid" id="sid"
-                       class="col-md-6 form-control" th:value="${member.sid}">
-            </label>
-            <label>
-                职位
-                <input type="text" th:name="position" id="position"
-                       class="col-md-6 form-control" th:value="${member.position}">
-            </label>
+			<div class="input-group mb-2 col-md-6">
+				<div class="input-group-prepend">
+					<span class="input-group-text">学号</span>
+				</div>
+				<input type="text" th:name="name" id="name" class="col-md form-control" th:value="${member.sid}">
+			</div>
+			<div class="input-group mb-2 col-md-6">
+				<div class="input-group-prepend">
+					<span class="input-group-text">职位</span>
+				</div>
+				<input type="text" th:name="location" id="location" class="col-md form-control" th:value="${member.position}">
+			</div>
         </div>
         <div class="row">
             <button type="submit" th:data-id="${member.mid}" onclick="editMember(this)"

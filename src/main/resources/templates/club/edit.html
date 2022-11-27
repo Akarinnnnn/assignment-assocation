@@ -56,16 +56,19 @@
 				<a class="nav-link" th:href="@{/activity/index}">活动管理</a>			</div>
 		</div>
 	</nav>
-	<div class="">
-		<label>
-			社团名称
-			<input type="text" th:name="name" id="clubName" class="col-md-6 form-control" th:value="${club.name}">
-		</label>
-		<label>
-			创立日期
-			<input type="date" th:name="foundDate" id="foundDate" class="col-md-6 form-control"
-				th:value="${club.foundDate}">
-		</label>
+	<div class="row">
+		<div class="input-group mb-2">
+			<div class="input-group-prepend">
+				<span class="input-group-text">社团名称</span>
+			</div>
+			<input type="text" name="name" id="clubName" class="col-md-6 form-control th:value="${club.name}"">
+		</div>
+		<div class="input-group mb-2">
+			<div class="input-group-prepend">
+				<span class="input-group-text">创立日期</span>
+			</div>
+			<input type="date" name="foundDate" id="foundDate" class="col-md-6 form-control" th:value="${club.foundDate}">
+		</div>
 		<input type="hidden" name="id" th:value="${club.id}">
 	</div>
 	<div class="row">

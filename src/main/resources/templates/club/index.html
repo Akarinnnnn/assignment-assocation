@@ -34,14 +34,15 @@
 				<div class="navbar-nav">
 					<a class="nav-link active" th:href="@{/club/index}">社团管理</a>
 					<a class="nav-link" th:href="@{/member/index}">社团成员管理</a>
-					<a class="nav-link" th:href="@{/activity/index}">活动管理</a>					</div>
+					<a class="nav-link" th:href="@{/activity/index}">活动管理</a>
+				</div>
 			</div>
 		</nav>
 	
 		<div class="row d-flex">
 			<input class="form-control col-md-10" type="text" name="clubname" id="clubName" placeholder="社团名称">
 			<button class="btn btn-outline-primary col-md-2" onclick="searchClubClicked()">查找</button>
-			<a class="btn btn-outline-primary col-md-2" href="create.html">新建</a>
+			<a class="btn btn-outline-primary col-md-2" th:href="@{create}">新建</a>
 		</div>
 		<div class="container col-md" id="search-result">
 			<!-- 记得修改上边的拼接 -->
