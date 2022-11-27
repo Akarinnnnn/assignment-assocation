@@ -11,7 +11,6 @@ function appendClub(container, club) {
 }
 
 async function getOnePageOfClub(numPage) {let response = await fetch(clubapi + "/list/" + numPage, {
-		body: '{}',
 		method: "GET",
 		headers: {
 			"Content-Type": 'application/json',
@@ -23,7 +22,8 @@ async function getOnePageOfClub(numPage) {let response = await fetch(clubapi + "
 	if(response.ok) {
 		let container = $('#search-result');
 		container.empty();
-		for (const club of response.json()) {
+		let clubs = await response.json()
+		for (const club of clubs) {
 			appendClub(container, club)
 		}
 	}
