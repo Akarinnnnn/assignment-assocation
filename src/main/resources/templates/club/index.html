@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>社团管理页面</title>
+	<meta charset="UTF-8">
+	<title>社团管理页面</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
@@ -10,88 +11,63 @@
         const clubview = [[@{/club}]];
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
-    </script>
-    <script>
-        function appendClub(container, club) {
-            container.append("<div class=\"bg-light rounded-2 mb-1 p-1\"><div class=\"row\">\n" +
-                "<div class=\"col-4\">"+ club.name +"</div>\n" +
-                "<div class=\"col-4\" >" + club.foundDate + "</div>\n" +
-                "<div class=\"col-4\">\n" +
-                "   <a class=\"btn btn-primary\" data-id=\""+ club.id +"\" onclick=\"goEdit(this)\">编辑</a>\n" +
-                "   <button class=\"btn btn-danger\" data-id=\""+ club.id +
-                "\" onclick=\"deleteClub(this)\">删除</button>\n" +
-                " </div>\n" +
-                "</div></div>"
-            )
-        }
-
-        async function deleteClub(elem) {
-            let param = {}
-            param[csrfName] = csrfToken
-            let recordid = elem.getAttribute('data-id');
-            let request = await fetch(clubapi + "/delete/" + recordid,
-                {
-                    body: JSON.stringify(param),
-                    method: "POST",
-                    headers: {
-                        "Content-Type": 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    credentials: "same-origin"
-                });
-
-            if (request.ok) {
-                alert("已成功删除！");
-                elem.parentElement.parentElement.parentElement.remove();
-                // document.querySelector("[data-record-id='"+recordid+"']")
-            } else {
-                console.log(request.statusText);
-            }
-        }
-
-        function goEdit(elem) {
-            window.location = clubview + "/edit?id=" + elem.getAttribute('data-id')
-        }
-
-        function searchClubClicked() {
-            let se = $("#clubName").val();
-            $.ajax({
-                url: clubapi + "/search/" + encodeURIComponent(se),
-                type: "GET",
-                dataType: "json",
-                success: (data, textStatus) => {
-                    let container = $('#search-result');
-                    container.empty();
-                    for (const club of data) {
-                        appendClub(container, club)
-                    }
-                }
-            });
-        }
-    </script>
+	</script>
+	<script th:src="@{/js/clubutils.js}"></script>
+	<script>
+		function goEdit(elem) {
+			window.location = clubview + "/edit?id=" + elem.getAttribute('data-id')
+		}
+		getOnePageOfClub(0);
+	</script>
 </head>
+
 <body>
-    <div class="container">
-        <div class="row d-flex">
-            <input class="form-control col-md-10"
-                   type="text" name="clubname"
-                   id="clubName" placeholder="社团名称">
-            <button class="btn btn-outline-primary col-md-2" onclick="searchClubClicked()">查找</button>
-            <a class="btn btn-outline-primary col-md-2" href="/club/create">新建</a>
-        </div>
-        <div class="container col-md" id="search-result" >
-            <!-- 记得修改上边的拼接 -->
-            <div class="bg-light rounded-2 mb-1 p-1" th:data-record-id="${club.id}" th:each="club:${clubs}">
-                <div class="row">
-                    <div class="col-4" th:text="${club.name}"></div>
-                    <div class="col-4" th:text="${club.foundDate}"></div>
-                    <div class="col-4">
-                        <a class="btn btn-primary" th:data-id="${club.id}" onclick="goEdit(this)">编辑</a>
-                        <button class="btn btn-danger" th:data-id="${club.id}" onclick="deleteClub(this)">删除</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<nav class="navbar navbar-expand-md navbar-pills">
+			<a class="navbar-brand" href="../index.html">
+				<img src="../img/logo.png" alt="logo" class="mr-1"> 社团管理系统</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggle"
+				aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbar-toggle">
+				<div class="navbar-nav">
+					<a class="nav-link" th:href="@{./index.html}">社团管理</a>
+					<a class="nav-link" th:href="@{member/index.html}">社团成员管理</a>
+					<a class="nav-link active" th:href="@{/activity/index.html}">活动管理</a>
+					</div>
+			</div>
+		</nav>
+	
+		<div class="row d-flex">
+			<input class="form-control col-md-10" type="text" name="clubname" id="clubName" placeholder="社团名称">
+			<button class="btn btn-outline-primary col-md-2" onclick="searchClubClicked()">查找</button>
+			<a class="btn btn-outline-primary col-md-2" href="create.html">新建</a>
+		</div>
+		<div class="container col-md" id="search-result">
+			<!-- 记得修改上边的拼接 -->
+			<!-- <div class="bg-light rounded-2 mb-1 p-1" data-record-id="1">
+				<div class="row">
+					<div class="col-4">烹饪协会</div>
+					<div class="col-4">2022/11/23</div>
+					<div class="col-4">
+						<a class="btn btn-primary" data-id="1" onclick="goEdit(this)">编辑</a>
+						<button class="btn btn-danger" data-id="1" onclick="deleteClub(this)">删除</button>
+					</div>
+				</div>
+			</div>
+			<div class="bg-light rounded-2 mb-1 p-1" data-record-id="1">
+				<div class="row">
+					<div class="col-4">xx动漫社</div>
+					<div class="col-4">2022/11/24</div>
+					<div class="col-4">
+						<a class="btn btn-primary" data-id="1" onclick="goEdit(this)">编辑</a>
+						<button class="btn btn-danger" data-id="1" onclick="deleteClub(this)">删除</button>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
 </body>
+
 </html>

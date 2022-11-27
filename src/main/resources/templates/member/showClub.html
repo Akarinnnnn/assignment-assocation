@@ -23,33 +23,26 @@
             window.location = transfer + "?id=" + elem.getAttribute("data-id")
         }
 
-        async function deleteMember(elem) {
-            let param = {}
-            param[csrfName] = csrfToken
-            let recordid = elem.getAttribute('data-id');
-            let request = await fetch(memberapi + "/delete/" + recordid,
-                {
-                    body: JSON.stringify(param),
-                    method: "POST",
-                    headers: {
-                        "Content-Type": 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    credentials: "same-origin"
-                });
-
-            if (request.ok) {
-                alert("已成功删除！");
-                elem.parentElement.parentElement.parentElement.remove();
-                // document.querySelector("[data-record-id='"+recordid+"']")
-            } else {
-                console.log(request.statusText);
-            }
-        }
+		getOnePageOfClub(0);
     </script>
 </head>
 <body>
 <div class="container">
+	<nav class="navbar navbar-expand-md navbar-pills">
+		<a class="navbar-brand" href="../index.html">
+			<img src="../img/logo.png" alt="logo" class="mr-1"> 社团管理系统</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggle"
+			aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbar-toggle">
+			<div class="navbar-nav">
+				<a class="nav-link" th:href="@{./index.html}">社团管理</a>
+				<a class="nav-link" th:href="@{member/index.html}">社团成员管理</a>
+				<a class="nav-link active" th:href="@{/activity/index.html}">活动管理</a>
+			</div>
+		</div>
+	</nav>
         <div class="row">
             社团名称：<span th:text="${club.name}"></span>
             <a class="btn btn-outline-primary col-md-2"

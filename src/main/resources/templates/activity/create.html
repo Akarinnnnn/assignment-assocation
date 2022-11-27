@@ -2,25 +2,28 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>添加成员</title>
+    <title>添加活动</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:inline="javascript">
-        const api = [[@{/api/member}]];
-        const index = [[@{/member/index}]];
-        const cid = [[${cid}]]
+        const api = [[@{/api/activity}]];
+        const cid = [[${cid}]];
+        const showClub = [[@{/activity/showClub}]];
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
+
     </script>
     <script>
         async function create() {
             let param = {
                 cid: cid,
-                sid: $('#sid').val(),
-                position: $('#position').val()
+                name: $('#name').val(),
+                location: $('#location').val(),
+                timestart: $('#timestart').val(),
+                timeend: $('#timeend').val()
             }
             param[csrfName] = csrfToken
-            let request = await fetch(api + "/create/",
+            let request = await fetch(api + "/create",
                     {
                         body: JSON.stringify(param),
                         method: "POST",
@@ -32,7 +35,7 @@
                     });
 
             if(request.ok) {
-                window.location = index
+                window.location = showClub + "?id=" + cid;
             }
             else {
                 console.log("更改失败");
@@ -42,20 +45,44 @@
 </head>
 <body>
 <div class="container">
-<!--    <form method="post" th:action="@{/club/update}" >-->
-        <div class="row">
-            <label>
-                学号
-                <input type="text" th:name="sid" id="sid"
-                       class="col-md-6 form-control">
-            </label>
-            <label>
-                职位
-                <input type="text" th:name="position" id="position"
-                       class="col-md-6 form-control">
-            </label>
-        </div>
-        <div class="row">
+	<nav class="navbar navbar-expand-md navbar-pills">
+		<a class="navbar-brand" href="../index.html">
+			<img src="../img/logo.png" alt="logo" class="mr-1"> 社团管理系统</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggle"
+			aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbar-toggle">
+			<div class="navbar-nav">
+				<a class="nav-link" th:href="@{./index.html}">社团管理</a>
+				<a class="nav-link" th:href="@{member/index.html}">社团成员管理</a>
+				<a class="nav-link active" th:href="@{/activity/index.html}">活动管理</a>
+			</div>
+		</div>
+	</nav>
+    <div class="row">
+        <label>
+            活动名
+            <input type="text" th:name="name" id="name"
+                   class="col-md form-control">
+        </label>
+        <label>
+            举办地点
+            <input type="text" th:name="location" id="location"
+                   class="col-md form-control">
+        </label>
+        <label>
+            开始时间
+            <input type="datetime-local" th:name="timestart" id="timestart"
+                   class="col-md form-control">
+        </label>
+        <label>
+            结束时间
+            <input type="datetime-local" th:name="timeend" id="timeend"
+                   class="col-md form-control">
+        </label>
+    </div>
+    <div class="row">
             <button onclick="create(this)"
                     class="btn btn-primary col-md">确认</button>
         </div>

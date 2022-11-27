@@ -3,13 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>主页</title>
-    <script type="text/javascript" th:src="@{/JQuery/jquery.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script type="text/javascript" src="JQuery/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-欢迎使用学生社团管理系统<br>
-<a class="btn btn-outline-primary" th:href="@{/club/index}">社团管理</a>
-<a class="btn btn-outline-primary" th:href="@{/member/}">成员管理</a>
-<a class="btn btn-outline-primary" th:href="@{/activity/}">活动管理</a>
+	<div class="container">
+		<nav class="navbar navbar-expand-md navbar-pills">
+			<a class="navbar-brand" href="../index.html">
+				<img src="../img/logo.png" alt="logo" class="mr-1"> 社团管理系统</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggle"
+				aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbar-toggle">
+				<div class="navbar-nav">
+					<a class="nav-link" href="index.html">社团管理</a>
+					<a class="nav-link" href="../member/index.html">社团成员管理</a>
+					<a class="nav-link" href="../activity/index.html">活动管理</a>
+				</div>
+			</div>
+		</nav>
+		<div class="container-fluid bg-light py-5">
+			<!-- border -->
+			<h1 class="display=5 fw-bold">欢迎使用学生社团管理系统</h1>
+			<!-- <p class="col-md-8 fs-4">kjfoddsfalsdnlanrglasdh ouasd auidshfaeh</p> -->
+			<div class="row">
+				<div class="col-sm">
+					<a class="btn btn-outline-primary" th:href="@{club/index}">社团管理</a>
+				</div>
+				<div class="col-sm">
+					<a class="btn btn-outline-primary" href="@{member/index}">成员管理</a>
+				</div>
+				<div class="col-sm">
+					<a class="btn btn-outline-primary" href="@{activity/index}">活动管理</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

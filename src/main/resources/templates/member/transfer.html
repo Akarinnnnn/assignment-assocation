@@ -19,19 +19,8 @@
             position: [[${member.position}]]
         }
     </script>
+	<script th:src="@{/js/clubutils.js}"></script>
     <script>
-        function appendClub(container, club) {
-            container.append("<div class=\"bg-light rounded-2 mb-1 p-1\">\n    " +
-                "<div class=\"row\">\n" +
-                "    <div class=\"col-4\">"+ club.name+"</div>\n        " +
-                "    <div class=\"col-4\"">+ club.foundDate +
-                "    <div class=\"col-4\">\n" +
-                "        <a class=\"btn btn-primary\" data-id=\""+club.id+"\" onclick=\"goEdit(this)\">转移</a>\n    " +
-                "    </div>\n    " +
-                "</div>\n" +
-                "</div>")
-        }
-
         async function transferTo(elem) {
 
             let param = data
@@ -57,25 +46,26 @@
             window.location = memberView + "/showClub?id=" + elem.getAttribute('data-id')
         }
 
-        function searchClubClicked() {
-            let se = $("#clubName").val();
-            $.ajax({
-                url: clubapi + "/search/" + encodeURIComponent(se),
-                type: "GET",
-                dataType: "json",
-                success: (data, textStatus) => {
-                    let container = $('#search-result');
-                    container.empty();
-                    for (const club of data) {
-                        appendClub(container, club)
-                    }
-                }
-            });
-        }
+		getOnePageOfClub(0);
     </script>
 </head>
 <body>
 <div class="container">
+	<nav class="navbar navbar-expand-md navbar-pills">
+		<a class="navbar-brand" href="../index.html">
+			<img src="../img/logo.png" alt="logo" class="mr-1"> 社团管理系统</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggle"
+			aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbar-toggle">
+			<div class="navbar-nav">
+				<a class="nav-link" th:href="@{./index.html}">社团管理</a>
+				<a class="nav-link" th:href="@{member/index.html}">社团成员管理</a>
+				<a class="nav-link active" th:href="@{/activity/index.html}">活动管理</a>
+			</div>
+		</div>
+	</nav>
     <p>查找社团</p>
     <div class="row d-flex">
         <input class="form-control col-md-10"
