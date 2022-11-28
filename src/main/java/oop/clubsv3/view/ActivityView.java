@@ -27,7 +27,7 @@ public class ActivityView
 	public String index(Model model)
 	{
 		model.addAttribute("clubs", dbClub.getOnePage(0));
-		return "/activity/index";
+		return "activity/index";
 	}
 	
 	@RequestMapping(value = "/edit", params = "id")
@@ -35,14 +35,14 @@ public class ActivityView
 	{
 		Activity activity = db.getOne(aid);
 		model.addAttribute("activity", activity);
-		return "/activity/edit";
+		return "activity/edit";
 	}
 	
 	@RequestMapping(value = "/create", params = "id")
 	public String create(@RequestParam("id") int cid, Model model)
 	{
 		model.addAttribute("cid", cid);
-		return "/activity/create";
+		return "activity/create";
 	}
 	
 	@RequestMapping(value = "/showClub", params = "id")
@@ -51,7 +51,7 @@ public class ActivityView
 		Club club = dbClub.getClub(id);
 		model.addAttribute("club", club);
 		model.addAttribute("activities", db.getByClub(id));
-		return "/activity/showClub";
+		return "activity/showClub";
 	}
 	
 	@RequestMapping(value = "/transfer", params = "id")
@@ -59,6 +59,6 @@ public class ActivityView
 	{
 		model.addAttribute("activity", db.getOne(aid));
 		// model.addAttribute("clubs", dbClub.getOnePage(0));
-		return "/activity/transfer";
+		return "activity/transfer";
 	}
 }

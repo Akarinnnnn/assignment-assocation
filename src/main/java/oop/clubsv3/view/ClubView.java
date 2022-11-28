@@ -22,20 +22,22 @@ public class ClubView
 	public String index(Model model)
 	{
 		model.addAttribute("clubs", db.getOnePage(0));
-		return "/club/index";
+		return "club/index";
 	}
 	
 	@RequestMapping(value = "/edit", params = "id")
 	public String edit(@RequestParam("id") int id, Model model)
 	{
 		Club club = db.getClub(id);
+		if (club == null)
+			return "club/index";
 		model.addAttribute("club", club);
-		return "/club/edit";
+		return "club/edit";
 	}
 	
 	@RequestMapping("/create")
 	public String create(Model model)
 	{
-		return "/club/create";
+		return "club/create";
 	}
 }

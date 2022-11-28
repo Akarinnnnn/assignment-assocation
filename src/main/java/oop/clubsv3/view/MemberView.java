@@ -27,7 +27,7 @@ public class MemberView
 	public String index(Model model)
 	{
 		model.addAttribute("clubs", dbClub.getOnePage(0));
-		return "/member/index";
+		return "member/index";
 	}
 	
 	@RequestMapping(value = "/showClub", params = "id")
@@ -36,7 +36,7 @@ public class MemberView
 		Club club = dbClub.getClub(id);
 		model.addAttribute("club", club);
 		model.addAttribute("members", db.searchByClubId(club));
-		return "/member/showClub";
+		return "member/showClub";
 	}
 	
 	@RequestMapping(value = "/edit", params = "id")
@@ -44,14 +44,14 @@ public class MemberView
 	{
 		Member member = db.getMember(mid);
 		model.addAttribute("member", member);
-		return "/member/edit";
+		return "member/edit";
 	}
 	
 	@RequestMapping(value = "/create", params = "id")
 	public String create(@RequestParam("id") int cid, Model model)
 	{
 		model.addAttribute("cid", cid);
-		return "/member/create";
+		return "member/create";
 	}
 	
 	@RequestMapping(value = "/transfer", params = "id")
@@ -60,6 +60,6 @@ public class MemberView
 		model.addAttribute("member", db.getMember(mid));
 		model.addAttribute("clubs", dbClub.getOnePage(0));
 		
-		return "/member/transfer";
+		return "member/transfer";
 	}
 }

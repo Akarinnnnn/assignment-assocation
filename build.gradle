@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'oop'
-version = '1.0.1b'
+version = '1.0.2'
 sourceCompatibility = '17'
 
 repositories {
