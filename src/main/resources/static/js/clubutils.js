@@ -48,3 +48,26 @@ function searchClubClicked() {
 		}
 	});
 }
+
+async function deleteClub(elem) {
+	let param = {}
+	param[csrfName] = csrfToken
+	let recordid = elem.getAttribute('data-id');
+	let request = await fetch(clubapi + "/delete/" + recordid,
+		{
+			body: JSON.stringify(param),
+			method: "POST",
+			headers: {
+				"Content-Type": 'application/json',
+				'X-CSRF-TOKEN': csrfToken
+			},
+			credentials: "same-origin"
+		});
+
+	if (request.ok) {
+		alert("已成功删除！");
+		elem.parentElement.parentElement.parentElement.remove();
+	} else {
+		console.log(request.statusText);
+	}
+}

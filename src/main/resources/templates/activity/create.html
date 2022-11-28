@@ -5,6 +5,7 @@
     <title>添加活动</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:inline="javascript">
         const api = [[@{/api/activity}]];
         const cid = [[${cid}]];
@@ -61,13 +62,13 @@
 		</div>
 	</nav>
     <div class="row">
-		<div class="input-group mb-2 col-md-6">
+		<div class="col input-group mb-2 col-md-6">
 			<div class="input-group-prepend">
 				<span class="input-group-text">活动名</span>
 			</div>
 			<input type="text" th:name="name" id="name" class="col-md form-control">
 		</div>
-		<div class="input-group mb-2 col-md-6">
+		<div class="col input-group mb-2 col-md-6">
 			<div class="input-group-prepend">
 				<span class="input-group-text">举办地点</span>
 			</div>
@@ -75,13 +76,13 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="input-group mb-2 col-md-6">
+		<div class="col input-group mb-2 col-md-6">
 			<div class="input-group-prepend">
 				<span class="input-group-text">开始时间</span>
 			</div>
 			<input type="datetime-local" th:name="timestart" id="timestart" class="col-md form-control">
 		</div>
-		<div class="input-group mb-2 col-md-6">
+		<div class="col input-group mb-2 col-md-6">
 			<div class="input-group-prepend">
 				<span class="input-group-text">结束时间</span>
 			</div>

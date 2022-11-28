@@ -54,4 +54,11 @@ public class ActivityView
 		return "/activity/showClub";
 	}
 	
+	@RequestMapping(value = "/transfer", params = "id")
+	public String transfer(@RequestParam("id") int aid, Model model)
+	{
+		model.addAttribute("activity", db.getOne(aid));
+		// model.addAttribute("clubs", dbClub.getOnePage(0));
+		return "/activity/transfer";
+	}
 }

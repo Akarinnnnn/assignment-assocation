@@ -2,31 +2,32 @@
 <html lang="zh"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>转移成员所属</title>
+    <title>转移活动所属</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
-    <script inline="javascript">
-        const clubapi = "/api/club";
-        const memberapi = "/api/member";
-        const memberView = "/member";
-        const csrfName = "csrf"
-        const csrfToken = "123456"
-
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:inline="javascript">
+        const clubapi = [[@{/api/club}]];
+        const api = [[@{/api/activity}]];
+        const view = [[@{/activity}]];
+        const csrfName = [[${_csrf.parameterName}]];
+        const csrfToken = [[${_csrf.token}]];
         const data = {
-            mid: [[${member.mid}]],
-            cid: [[${member.cid}]],
-            sid: [[${member.sid}]],
-            position: [[${member.position}]]
+            aid: [[${activity.aid}]],
+            cid: [[${activity.cid}]],
+            name: [[${activity.name}]],
+            timestart: [[${activity.timestart}]],
+            timeend: [[${activity.timeend}]],
+            location: [[${activity.location}]]
         }
     </script>
 	<script th:src="@{/js/clubutils.js}"></script>
     <script>
         async function transferTo(elem) {
-
             let param = data
             param[csrfName] = csrfToken
             data.cid = elem.getAttribute('data-id');
-            let request = await fetch(memberapi + "/update/" + recordid,
+            let request = await fetch(api + "/update/" + data.aid,
                 {
                     body: JSON.stringify(param),
                     method: "POST",
@@ -38,13 +39,13 @@
                 });
 
             if (request.ok) {
-                alert("已成功删除！");
+                alert("转移成功！");
                 elem.parentElement.parentElement.parentElement.remove();
                 // document.querySelector("[data-record-id='"+recordid+"']")
+				window.location = view + "/showClub?id=" + elem.getAttribute('data-id')
             } else {
                 console.log(request.statusText);
             }
-            window.location = memberView + "/showClub?id=" + elem.getAttribute('data-id')
         }
 
 		function appendClub(container, club) {

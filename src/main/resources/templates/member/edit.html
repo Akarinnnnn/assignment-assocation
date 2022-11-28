@@ -5,11 +5,12 @@
     <title>编辑社团成员</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:inline="javascript">
         const memberapi = [[@{/api/member}]];
         const mid = [[${member.mid}]];
         const cid = [[${member.cid}]];
-        const memberIndex = [[@{/member/}]];
+		const returnUrl = [[@{/member/showClub}]];
         const csrfName = [[${_csrf.parameterName}]];
         const csrfToken = [[${_csrf.token}]];
     </script>
@@ -34,7 +35,7 @@
                     });
 
             if(request.ok) {
-                window.location = memberIndex
+				window.location = returnUrl + "?id=" + cid
             }
             else {
                 console.log("更改失败");
@@ -59,13 +60,13 @@
 		</div>
 	</nav>
         <div class="row">
-			<div class="input-group mb-2 col-md-6">
+			<div class="col col-md input-group mb-2 col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text">学号</span>
 				</div>
 				<input type="text" th:name="name" id="name" class="col-md form-control" th:value="${member.sid}">
 			</div>
-			<div class="input-group mb-2 col-md-6">
+			<div class="col col-md input-group mb-2 col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text">职位</span>
 				</div>

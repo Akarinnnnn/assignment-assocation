@@ -5,11 +5,12 @@
     <title>添加社团</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
-    <script inline="javascript">
-        const clubapi = "/api/club";
-        const clubindex = "/club/index";
-        const csrfName = "csrf"
-        const csrfToken = "123456"
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:inline="javascript">
+        const clubapi = [[@{/api/club}]];
+        const clubindex = [[@{/club/}]];
+        const csrfName = [[${_csrf.parameterName}]];
+        const csrfToken = [[${_csrf.token}]];
     </script>
     <script>
         async function create() {
@@ -56,13 +57,13 @@
 	</nav>
 
 	<div class="row">
-		<div class="input-group mb-2">
+		<div class="col input-group mb-2">
 			<div class="input-group-prepend">
 				<span class="input-group-text">社团名称</span>
 			</div>
 			<input type="text" name="name" id="clubName" class="col-md-6 form-control">
 		</div>
-		<div class="input-group mb-2">
+		<div class="col input-group mb-2">
 			<div class="input-group-prepend">
 				<span class="input-group-text">创立日期</span>
 			</div>

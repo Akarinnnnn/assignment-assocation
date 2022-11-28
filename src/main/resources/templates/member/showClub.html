@@ -5,6 +5,7 @@
     <title>编辑社团信息</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:inline="javascript">
         const clubapi = [[@{/api/club}]];
         const memberapi = [[@{/api/member}]];
@@ -23,7 +24,29 @@
             window.location = transfer + "?id=" + elem.getAttribute("data-id")
         }
 
-		getOnePageOfClub(0);
+		async function deleteMember(elem) {
+			let param = {}
+			param[csrfName] = csrfToken
+			let recordid = elem.getAttribute('data-id');
+			let request = await fetch(memberapi + "/delete/" + recordid,
+				{
+					body: JSON.stringify(param),
+					method: "POST",
+					headers: {
+						"Content-Type": 'application/json',
+						'X-CSRF-TOKEN': csrfToken
+					},
+					credentials: "same-origin"
+				});
+
+			if (request.ok) {
+				alert("已成功删除！");
+				elem.parentElement.parentElement.parentElement.remove();
+				// document.querySelector("[data-record-id='"+recordid+"']")
+			} else {
+				console.log(request.statusText);
+			}
+		}
     </script>
 </head>
 <body>
