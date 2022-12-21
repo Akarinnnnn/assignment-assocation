@@ -4,8 +4,10 @@ spring:
     username: club
     password: 123456
 
+  profiles:
+    active: dev
 
-#  mvc:
+  #  mvc:
 #    static-path-pattern: /static/**
   thymeleaf:
     cache: false
@@ -15,9 +17,3 @@ spring:
 mybatis:
   mapper-locations: classpath:orm/*.xml
   type-aliases-package: oop.clubsv3.models
-
-logging:
-  charset:
-    console: utf-8
-  level:
-    web: debug

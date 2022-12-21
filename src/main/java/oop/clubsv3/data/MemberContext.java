@@ -9,53 +9,72 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MemberContext implements DisposableBean
+public class MemberContext
 {
 	private static final String NameSpace = "oop.clubsv3.models.Member.";
 	
-	private final SqlSession session;
+	private final DbConnectionBean fac;
 	
 	public MemberContext(DbConnectionBean fac)
 	{
-		session = fac.getConnection();
+		this.fac = fac;
 	}
 	
-	@Override
-	public void destroy()
-	{
-		session.close();
-	}
 	
 	public Member getMember(int mid)
 	{
-		return session.selectOne(NameSpace + "getByMid", mid);
+		try (var session = fac.getConnection())
+		{
+			return session.selectOne(NameSpace + "getByMid", mid);
+			
+		}
 	}
 	
 	public void delete(int mid)
 	{
-		session.delete(NameSpace + "delete", mid);
-		session.commit();
+		try (var session = fac.getConnection())
+		{
+			session.delete(NameSpace + "delete", mid);
+			session.commit();
+			
+		}
 	}
 	
 	public void update(Member member)
 	{
-		session.update(NameSpace + "update", member);
-		session.commit();
+		try (var session = fac.getConnection())
+		{
+			session.update(NameSpace + "update", member);
+			session.commit();
+			
+		}
 	}
 	
 	public void create(Member member)
 	{
-		session.insert(NameSpace + "new", member);
-		session.commit();
+		try (var session = fac.getConnection())
+		{
+			session.insert(NameSpace + "new", member);
+			session.commit();
+			
+		}
 	}
 	
 	public List<Member> searchByClubId(Club club)
 	{
-		return searchByClubId(club.getId());
+		try (var session = fac.getConnection())
+		{
+			return searchByClubId(club.getId());
+			
+		}
 	}
 	
 	public List<Member> searchByClubId(int clubId)
 	{
-		return session.selectList(NameSpace + "getByCid", clubId);
+		try (var session = fac.getConnection())
+		{
+			return session.selectList(NameSpace + "getByCid", clubId);
+			
+		}
 	}
 }

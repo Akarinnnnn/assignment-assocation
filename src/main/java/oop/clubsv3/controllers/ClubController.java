@@ -58,9 +58,4 @@ public class ClubController
 		return db.getClub(id);
 	}
 	
-	@PreDestroy
-	public void destory()
-	{
-		db.destroy();
-	}
 }

@@ -41,8 +41,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 		// security.
 		
 		security.authorizeHttpRequests((authz) -> {
-			authz.antMatchers("/login2", "/register","/**").permitAll();
+			authz.antMatchers("/login", "/register", "/index", "/login-failure").permitAll();
 			authz.anyRequest().authenticated();
+			
 		});
 		// return security.build();
 	}

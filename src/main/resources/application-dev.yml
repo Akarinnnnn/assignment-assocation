@@ -1,0 +1,5 @@
+logging:
+  charset:
+    console: utf-8
+  level:
+    web: debug
