@@ -32,9 +32,11 @@ async function getOnePageOfClub(numPage) {let response = await fetch(clubapi + "
 function searchClubClicked() {
 	let se = $("#clubName").val();
 	
-	if(!se)
-		se = "";
-	
+	if(!se) {
+		// se = "";
+		getOnePageOfClub(0)
+		return;
+	}
 	$.ajax({
 		url: clubapi + "/search/" + encodeURIComponent(se),
 		type: "GET",
