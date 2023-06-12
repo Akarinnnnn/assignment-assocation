@@ -11,6 +11,9 @@ MySQL - 10.6.7-MariaDB : Database - oopclubmanagement
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+SET FOREIGN_KEY_CHECKS=0;
+
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`oopclubmanagement` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `oopclubmanagement`;
@@ -31,25 +34,6 @@ insert  into `activities`(`aid`,`name`,`location`,`cid`,`timestart`,`timeend`) v
 (2241,'新部员培训','501',8,'2022-11-23 14:18:19','2022-11-23 16:18:19'),
 (2242,'新部员培训','502',9,'2022-11-23 14:18:19','2022-11-23 16:18:19'),
 (2243,'新部员培训','503',10,'2022-11-23 14:18:19','2022-11-23 16:18:19');
-
-/*Data for the table `authorities` */
-
-insert  into `authorities`(`username`,`authority`) values 
-('user','ROLE_user'),
-('lisi','ROLE_user'),
-('zhangsan','ROLE_user'),
-('admin22','ROLE_admin'),
-('admin33','ROLE_admin'),
-('liu6','ROLE_user'),
-('wangwu','ROLE_user'),
-('zhang4','ROLE_user'),
-('user3','ROLE_user'),
-('s1mple','ROLE_user'),
-('zhang3','ROLE_user'),
-('li4','ROLE_user'),
-('wang5','ROLE_user'),
-('22','ROLE_user'),
-('33','ROLE_user');
 
 /*Data for the table `clubs` */
 
@@ -96,20 +80,6 @@ insert  into `members`(`mid`,`sid`,`cid`,`position`) values
 (12,6,2,'干事'),
 (13,20200101,3,'干事'),
 (14,20210201,4,'副部长');
-
-/*Data for the table `users` */
-
-insert  into `users`(`username`,`password`,`enabled`) values 
-('admin22','987654721.33',0),
-('admin33','987654721.33',0),
-('lisi','123456',1),
-('liu6','654321',1),
-('user','$2a$10$32kp183UrlaXQKMTOxGh3OlJs2tNqv75SKiDwUrzBHlCnEso4QuXS',1),
-('user1','987654721.33',1),
-('user2','123456',1),
-('wangwu','123456',1),
-('zhang4','654321',1),
-('zhangsan','123456',1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
